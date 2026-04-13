@@ -67,8 +67,7 @@ class CodeSuite(BenchmarkSuite):
                     metrics=run_metrics,
                     details={"extracted_code": code},
                 ))
-                if runs_per_case > 1:
-                    await client.send_command("/clear")
+                await client.send_command("/clear")
 
             avg_metrics = self._average_run_metrics(runs)
             all_metrics.append(avg_metrics)

@@ -40,8 +40,7 @@ class SpeedSuite(BenchmarkSuite):
                     metrics=result.metrics,
                     details={},
                 ))
-                if runs_per_case > 1:
-                    await client.send_command("/clear")
+                await client.send_command("/clear")
 
             avg_metrics = self._average_run_metrics(runs)
             all_metrics.append(avg_metrics)
