@@ -183,7 +183,10 @@ class E2EProjectSuite(BenchmarkSuite):
                 runs.append(RunResult(
                     passed=passed,
                     metrics=run_metrics,
-                    details={"tool_log": result.tool_log},
+                    details={
+                        "tool_log": result.tool_log,
+                        "response_text": result.response_text,
+                    },
                 ))
 
             case_metrics = self._compute_case_metrics(runs)
