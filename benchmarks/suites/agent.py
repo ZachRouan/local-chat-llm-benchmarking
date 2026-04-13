@@ -239,8 +239,6 @@ class AgentSuite(BenchmarkSuite):
         cases: list[CaseResult] = []
         runs_per_case = config.get("runs_per_case", 1)
 
-        await client.send_command("/agent on")
-
         for case_def in AGENT_CASES:
             runs: list[RunResult] = []
 
@@ -250,8 +248,12 @@ class AgentSuite(BenchmarkSuite):
                     base_setup(work_dir)
                     case_def["setup"](work_dir)
 
-                    prompt = f"Working directory: {work_dir}\n\n{case_def['task']}"
-                    result = await client.send_prompt(prompt)
+                    # Restart app from the test's working directory
+                    await client.stop()
+                    await client.start(cwd=work_dir)
+                    await client.send_command("/agent on")
+
+                    result = await client.send_prompt(case_def["task"])
 
                     passed = case_def["verify"](work_dir, result.response_text)
 
@@ -271,8 +273,6 @@ class AgentSuite(BenchmarkSuite):
                 finally:
                     shutil.rmtree(work_dir, ignore_errors=True)
 
-                await client.send_command("/clear")
-
             case_metrics = self._compute_case_metrics(runs)
             cases.append(CaseResult(
                 name=case_def["name"],
@@ -281,8 +281,6 @@ class AgentSuite(BenchmarkSuite):
                 runs=runs,
                 details={"level": case_def["level"]},
             ))
-
-        await client.send_command("/agent off")
 
         suite_metrics = self._compute_suite_metrics(cases)
         return SuiteResult(suite_name=self.name, metrics=suite_metrics, cases=cases)

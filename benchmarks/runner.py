@@ -34,29 +34,33 @@ class AppClient:
 
     def __init__(
         self,
-        app_path: str,
         server: str,
         env_overrides: dict[str, str] | None = None,
     ):
-        self.app_path = app_path
         self.server = server
         self.model: str | None = None
         self.context_length: int | None = None
         self._process: asyncio.subprocess.Process | None = None
         self._env_overrides = env_overrides or {}
 
-    async def start(self) -> None:
-        """Launch the chat app and navigate through startup menus."""
+    async def start(self, cwd: str | Path | None = None) -> None:
+        """Launch the chat app and navigate through startup menus.
+
+        Args:
+            cwd: Working directory to launch the app from. The app uses
+                 this as its project directory (tools operate relative to it).
+        """
         env = os.environ.copy()
         env["LLAMA_SERVERS"] = self.server
         env.update(self._env_overrides)
 
         self._process = await asyncio.create_subprocess_exec(
-            "python", str(Path(self.app_path) / "main.py"),
+            "local-llm",
             stdin=asyncio.subprocess.PIPE,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
             env=env,
+            cwd=str(cwd) if cwd else None,
         )
 
         await self._navigate_startup()

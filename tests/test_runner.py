@@ -2,14 +2,13 @@ from benchmarks.runner import AppClient, AppClientError
 
 
 def test_client_creation():
-    client = AppClient(app_path="/fake/path", server="localhost:8082")
-    assert client.app_path == "/fake/path"
+    client = AppClient(server="localhost:8082")
     assert client.server == "localhost:8082"
     assert client.model is None
 
 
 def test_parse_response_lines():
-    client = AppClient(app_path="/fake", server="localhost:8082")
+    client = AppClient(server="localhost:8082")
     lines = [
         "The capital of France is Paris.\n",
         "\n",
@@ -22,7 +21,7 @@ def test_parse_response_lines():
 
 
 def test_parse_response_with_tool_calls():
-    client = AppClient(app_path="/fake", server="localhost:8082")
+    client = AppClient(server="localhost:8082")
     lines = [
         "→ read_file: main.py\n",
         "  ✓ (42 lines)\n",
@@ -40,7 +39,7 @@ def test_parse_response_with_tool_calls():
 
 
 def test_parse_response_with_tool_errors():
-    client = AppClient(app_path="/fake", server="localhost:8082")
+    client = AppClient(server="localhost:8082")
     lines = [
         "→ read_file: missing.py\n",
         "  ✗ Error: FileNotFoundError: missing.py\n",

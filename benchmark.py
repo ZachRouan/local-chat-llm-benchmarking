@@ -41,7 +41,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--label", help="Tag this run with a label")
     parser.add_argument("--temperature", type=float, help="Override temperature")
     parser.add_argument("--max-tokens", type=int, help="Override max tokens")
-    parser.add_argument("--app-path", default="../local-chat-llm", help="Path to local-chat-llm")
     parser.add_argument("--runs", type=int, default=1, help="Runs per test case (default: 1)")
     return parser.parse_args()
 
@@ -88,7 +87,6 @@ async def cmd_run(args: argparse.Namespace) -> None:
     config = {"runs_per_case": args.runs}
 
     client = AppClient(
-        app_path=args.app_path,
         server=args.server,
         env_overrides=env_overrides,
     )
