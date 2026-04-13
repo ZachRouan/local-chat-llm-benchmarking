@@ -9,12 +9,12 @@ def test_e2e_suite_registration():
 
 
 def test_e2e_cases_count():
-    assert len(E2E_CASES) == 2
+    assert len(E2E_CASES) == 16
 
 
-def test_e2e_cases_are_level_5():
-    for case in E2E_CASES:
-        assert case["level"] == 5
+def test_e2e_levels_5_through_10():
+    levels = {c["level"] for c in E2E_CASES}
+    assert levels == {5, 6, 7, 8, 9, 10}
 
 
 def test_case10_verify_fail_missing(tmp_path):
