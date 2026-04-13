@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from benchmarks.suites import register
-from benchmarks.suites.agent import base_setup
+from benchmarks.suites.agent import base_setup, _make_work_dir
 from benchmarks.suites.base import BenchmarkSuite, SuiteResult, CaseResult, RunResult
 
 if TYPE_CHECKING:
@@ -152,45 +152,39 @@ class E2EProjectSuite(BenchmarkSuite):
     description = "End-to-end project creation — level 5 (expert)"
 
     async def run(self, client: AppClient, context_length: int, config: dict) -> SuiteResult:
-        import tempfile
-        import shutil
-
         cases: list[CaseResult] = []
         runs_per_case = config.get("runs_per_case", 1)
 
         for case_def in E2E_CASES:
             runs: list[RunResult] = []
 
-            for _ in range(runs_per_case):
-                work_dir = Path(tempfile.mkdtemp(prefix="bench-e2e-"))
-                try:
-                    base_setup(work_dir)
-                    case_def["setup"](work_dir)
+            for run_idx in range(runs_per_case):
+                work_dir = _make_work_dir(case_def["name"], run_idx)
+                base_setup(work_dir)
+                case_def["setup"](work_dir)
 
-                    # Restart app from the test's working directory
-                    await client.stop()
-                    await client.start(cwd=work_dir)
-                    await client.send_command("/agent on")
+                # Restart app from the test's working directory
+                await client.stop()
+                await client.start(cwd=work_dir)
+                await client.send_command("/agent on")
 
-                    result = await client.send_prompt(case_def["task"])
+                result = await client.send_prompt(case_def["task"])
 
-                    passed = case_def["verify"](work_dir, result.response_text)
+                passed = case_def["verify"](work_dir, result.response_text)
 
-                    run_metrics = dict(result.metrics)
-                    self_verified = any(
-                        entry.get("tool_name") == "run_command"
-                        for entry in result.tool_log
-                        if entry.get("type") == "call"
-                    )
-                    run_metrics["self_verified"] = self_verified
+                run_metrics = dict(result.metrics)
+                self_verified = any(
+                    entry.get("tool_name") == "run_command"
+                    for entry in result.tool_log
+                    if entry.get("type") == "call"
+                )
+                run_metrics["self_verified"] = self_verified
 
-                    runs.append(RunResult(
-                        passed=passed,
-                        metrics=run_metrics,
-                        details={"tool_log": result.tool_log},
-                    ))
-                finally:
-                    shutil.rmtree(work_dir, ignore_errors=True)
+                runs.append(RunResult(
+                    passed=passed,
+                    metrics=run_metrics,
+                    details={"tool_log": result.tool_log},
+                ))
 
             case_metrics = self._compute_case_metrics(runs)
             cases.append(CaseResult(

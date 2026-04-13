@@ -14,6 +14,24 @@ from benchmarks.suites.base import BenchmarkSuite, SuiteResult, CaseResult, RunR
 if TYPE_CHECKING:
     from benchmarks.runner import AppClient
 
+# Test case working directories are created here (relative to project root)
+TEST_PROGRAMS_DIR = Path(__file__).resolve().parent.parent.parent / "test-programs"
+
+
+def _make_work_dir(case_name: str, run_index: int) -> Path:
+    """Create a clean working directory for a test case run."""
+    import shutil
+    safe_name = case_name.lower().replace(" ", "-").replace(",", "")
+    if run_index > 0:
+        dir_name = f"{safe_name}-run{run_index + 1}"
+    else:
+        dir_name = safe_name
+    work_dir = TEST_PROGRAMS_DIR / dir_name
+    if work_dir.exists():
+        shutil.rmtree(work_dir)
+    work_dir.mkdir(parents=True)
+    return work_dir
+
 
 def base_setup(work_dir: Path) -> None:
     """Write permissive permissions file to the working directory."""
@@ -233,45 +251,39 @@ class AgentSuite(BenchmarkSuite):
     description = "Agent tool use — 9 cases across levels 1-4"
 
     async def run(self, client: AppClient, context_length: int, config: dict) -> SuiteResult:
-        import tempfile
-        import shutil
-
         cases: list[CaseResult] = []
         runs_per_case = config.get("runs_per_case", 1)
 
         for case_def in AGENT_CASES:
             runs: list[RunResult] = []
 
-            for _ in range(runs_per_case):
-                work_dir = Path(tempfile.mkdtemp(prefix="bench-agent-"))
-                try:
-                    base_setup(work_dir)
-                    case_def["setup"](work_dir)
+            for run_idx in range(runs_per_case):
+                work_dir = _make_work_dir(case_def["name"], run_idx)
+                base_setup(work_dir)
+                case_def["setup"](work_dir)
 
-                    # Restart app from the test's working directory
-                    await client.stop()
-                    await client.start(cwd=work_dir)
-                    await client.send_command("/agent on")
+                # Restart app from the test's working directory
+                await client.stop()
+                await client.start(cwd=work_dir)
+                await client.send_command("/agent on")
 
-                    result = await client.send_prompt(case_def["task"])
+                result = await client.send_prompt(case_def["task"])
 
-                    passed = case_def["verify"](work_dir, result.response_text)
+                passed = case_def["verify"](work_dir, result.response_text)
 
-                    run_metrics = dict(result.metrics)
-                    self_verified = any(
-                        entry.get("tool_name") == "run_command"
-                        for entry in result.tool_log
-                        if entry.get("type") == "call"
-                    )
-                    run_metrics["self_verified"] = self_verified
+                run_metrics = dict(result.metrics)
+                self_verified = any(
+                    entry.get("tool_name") == "run_command"
+                    for entry in result.tool_log
+                    if entry.get("type") == "call"
+                )
+                run_metrics["self_verified"] = self_verified
 
-                    runs.append(RunResult(
-                        passed=passed,
-                        metrics=run_metrics,
-                        details={"tool_log": result.tool_log},
-                    ))
-                finally:
-                    shutil.rmtree(work_dir, ignore_errors=True)
+                runs.append(RunResult(
+                    passed=passed,
+                    metrics=run_metrics,
+                    details={"tool_log": result.tool_log},
+                ))
 
             case_metrics = self._compute_case_metrics(runs)
             cases.append(CaseResult(
