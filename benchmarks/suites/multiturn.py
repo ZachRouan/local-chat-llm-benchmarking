@@ -27,7 +27,7 @@ class MultiTurnSuite(BenchmarkSuite):
         ("Turn 8", "Any cultural etiquette I should know about?"),
     ]
 
-    async def run(self, client: AppClient, context_length: int, config: dict) -> SuiteResult:
+    async def run(self, client: AppClient, context_length: int, config: dict, on_case_done=None) -> SuiteResult:
         cases: list[CaseResult] = []
         runs_per_case = config.get("runs_per_case", 1)
 
@@ -44,10 +44,14 @@ class MultiTurnSuite(BenchmarkSuite):
                         runs=[RunResult(passed=True, metrics=result.metrics, details={})],
                         details={},
                     ))
+                    if on_case_done:
+                        on_case_done(cases[-1])
                 else:
                     cases[i].runs.append(RunResult(
                         passed=True, metrics=result.metrics, details={},
                     ))
+                    if on_case_done:
+                        on_case_done(cases[-1])
 
         for case in cases:
             case.metrics = self._average_run_metrics(case.runs)

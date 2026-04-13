@@ -1060,7 +1060,7 @@ class E2EProjectSuite(BenchmarkSuite):
     name = "e2e_project"
     description = "End-to-end project creation — levels 5-10"
 
-    async def run(self, client: AppClient, context_length: int, config: dict) -> SuiteResult:
+    async def run(self, client: AppClient, context_length: int, config: dict, on_case_done=None) -> SuiteResult:
         cases: list[CaseResult] = []
         runs_per_case = config.get("runs_per_case", 1)
         levels = config.get("levels")
@@ -1109,6 +1109,8 @@ class E2EProjectSuite(BenchmarkSuite):
                 runs=runs,
                 details={"level": case_def["level"]},
             ))
+            if on_case_done:
+                on_case_done(cases[-1])
 
         suite_metrics = self._compute_suite_metrics(cases)
         return SuiteResult(suite_name=self.name, metrics=suite_metrics, cases=cases)

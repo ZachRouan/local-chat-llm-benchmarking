@@ -47,7 +47,7 @@ class CodeSuite(BenchmarkSuite):
         ("Flatten nested list", "Write a Python function called `flatten(lst)` that takes an arbitrarily nested list and returns a flat list of all elements. Only output the function, no explanation."),
     ]
 
-    async def run(self, client: AppClient, context_length: int, config: dict) -> SuiteResult:
+    async def run(self, client: AppClient, context_length: int, config: dict, on_case_done=None) -> SuiteResult:
         cases: list[CaseResult] = []
         all_metrics: list[dict] = []
         runs_per_case = config.get("runs_per_case", 1)
@@ -74,6 +74,8 @@ class CodeSuite(BenchmarkSuite):
             cases.append(CaseResult(
                 name=name, prompt=prompt, metrics=avg_metrics, runs=runs, details={},
             ))
+            if on_case_done:
+                on_case_done(cases[-1])
 
         return SuiteResult(
             suite_name=self.name,

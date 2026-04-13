@@ -4,10 +4,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Callable
 
 if TYPE_CHECKING:
     from benchmarks.runner import AppClient
+
+# Called after each case completes: on_case_done(case_result)
+ProgressCallback = Callable[["CaseResult"], None] | None
 
 
 @dataclass
@@ -47,5 +50,5 @@ class BenchmarkSuite:
     name: str = ""
     description: str = ""
 
-    async def run(self, client: AppClient, context_length: int, config: dict) -> SuiteResult:
+    async def run(self, client: AppClient, context_length: int, config: dict, on_case_done: ProgressCallback = None) -> SuiteResult:
         raise NotImplementedError

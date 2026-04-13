@@ -30,7 +30,7 @@ class ContextSuite(BenchmarkSuite):
     fill_levels = [0.10, 0.25, 0.50, 0.75, 0.90]
     question = "Based on everything above, what is the main topic being discussed? Answer in one sentence."
 
-    async def run(self, client: AppClient, context_length: int, config: dict) -> SuiteResult:
+    async def run(self, client: AppClient, context_length: int, config: dict, on_case_done=None) -> SuiteResult:
         cases: list[CaseResult] = []
         runs_per_case = config.get("runs_per_case", 1)
 
@@ -52,6 +52,8 @@ class ContextSuite(BenchmarkSuite):
                 name=name, prompt=f"[{name} context filler + question]",
                 metrics=avg_metrics, runs=runs, details={},
             ))
+            if on_case_done:
+                on_case_done(cases[-1])
 
         metrics: dict = {}
         for case in cases:

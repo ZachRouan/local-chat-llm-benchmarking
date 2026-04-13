@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -15,6 +16,7 @@ from benchmarks.runner import AppClient, AppClientError
 from benchmarks.results import save_results, load_results, find_previous_result, compute_deltas
 from benchmarks.report import print_summary, print_delta_report
 from benchmarks.suites import SUITE_REGISTRY
+from benchmarks.suites.base import CaseResult
 
 # Import all suites to trigger registration
 import benchmarks.suites.speed
@@ -27,6 +29,15 @@ import benchmarks.suites.e2e_project
 
 
 RESULTS_DIR = Path(__file__).parent / "results"
+PROGRESS_FILE = RESULTS_DIR / "progress.json"
+
+
+def _write_progress(progress: dict) -> None:
+    """Write the progress file atomically."""
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    tmp = PROGRESS_FILE.with_suffix(".tmp")
+    tmp.write_text(json.dumps(progress, indent=2, default=str) + "\n")
+    tmp.rename(PROGRESS_FILE)
 
 
 def parse_args() -> argparse.Namespace:
@@ -94,20 +105,68 @@ async def cmd_run(args: argparse.Namespace) -> None:
         env_overrides=env_overrides,
     )
 
+    # Track progress for the JSON status file
+    started_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    cases_done: list[dict] = []
+    progress = {
+        "running": True,
+        "model": None,
+        "server": args.server,
+        "label": args.label,
+        "current_suite": None,
+        "current_case": None,
+        "suites_completed": 0,
+        "suites_total": len(suite_names),
+        "cases_completed": 0,
+        "cases_total": 0,
+        "cases_done": cases_done,
+        "started_at": started_at,
+        "error": None,
+    }
+    _write_progress(progress)
+
     try:
         print(f"Starting local-chat-llm on {args.server}...", flush=True)
         await client.start()
         print(f"Connected. Model: {client.model or 'unknown'}, Context: {client.context_length or 'unknown'}")
         print()
 
+        progress["model"] = client.model
+        _write_progress(progress)
+
         context_length = client.context_length or 4096
         suite_results: dict = {}
 
-        for name in suite_names:
+        for suite_idx, name in enumerate(suite_names):
             suite_cls = SUITE_REGISTRY[name]
             suite = suite_cls()
-            print(f"Running suite: {suite.name} — {suite.description}")
-            result = await suite.run(client, context_length, config)
+            print(f"Running suite: {suite.name} — {suite.description}", flush=True)
+
+            progress["current_suite"] = suite.name
+            _write_progress(progress)
+
+            def on_case_done(case: CaseResult, _suite_name: str = name) -> None:
+                """Called by the suite after each case completes."""
+                case_info = {
+                    "name": case.name,
+                    "suite": _suite_name,
+                    "passed": case.runs[-1].passed if case.runs else None,
+                    "pass_rate": case.pass_rate,
+                    "metrics": case.metrics,
+                }
+                # Update or append (multiturn calls this multiple times per case)
+                for i, existing in enumerate(cases_done):
+                    if existing["name"] == case.name and existing["suite"] == _suite_name:
+                        cases_done[i] = case_info
+                        break
+                else:
+                    cases_done.append(case_info)
+
+                progress["cases_completed"] = len(cases_done)
+                progress["current_case"] = case.name
+                _write_progress(progress)
+
+            result = await suite.run(client, context_length, config, on_case_done=on_case_done)
 
             suite_results[name] = {
                 "metrics": result.metrics,
@@ -126,10 +185,13 @@ async def cmd_run(args: argparse.Namespace) -> None:
                 ],
             }
 
+            progress["suites_completed"] = suite_idx + 1
+            _write_progress(progress)
+
             await client.send_command("/clear")
 
         data = {
-            "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+            "timestamp": started_at,
             "model": client.model or "unknown",
             "server": args.server,
             "context_length": context_length,
@@ -141,6 +203,12 @@ async def cmd_run(args: argparse.Namespace) -> None:
         result_path = save_results(data, RESULTS_DIR)
         print_summary(data)
         print(f"Results saved to {result_path}")
+
+        # Mark progress as done
+        progress["running"] = False
+        progress["current_suite"] = None
+        progress["current_case"] = None
+        _write_progress(progress)
 
         if args.compare:
             model = client.model or "unknown"
@@ -155,8 +223,16 @@ async def cmd_run(args: argparse.Namespace) -> None:
                 print(f"\nNo previous results found for {model}. Nothing to compare.")
 
     except AppClientError as e:
+        progress["running"] = False
+        progress["error"] = str(e)
+        _write_progress(progress)
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
+    except Exception as e:
+        progress["running"] = False
+        progress["error"] = str(e)
+        _write_progress(progress)
+        raise
     finally:
         await client.stop()
 

@@ -250,7 +250,7 @@ class AgentSuite(BenchmarkSuite):
     name = "agent"
     description = "Agent tool use — 9 cases across levels 1-4"
 
-    async def run(self, client: AppClient, context_length: int, config: dict) -> SuiteResult:
+    async def run(self, client: AppClient, context_length: int, config: dict, on_case_done=None) -> SuiteResult:
         cases: list[CaseResult] = []
         runs_per_case = config.get("runs_per_case", 1)
         levels = config.get("levels")
@@ -299,6 +299,8 @@ class AgentSuite(BenchmarkSuite):
                 runs=runs,
                 details={"level": case_def["level"]},
             ))
+            if on_case_done:
+                on_case_done(cases[-1])
 
         suite_metrics = self._compute_suite_metrics(cases)
         return SuiteResult(suite_name=self.name, metrics=suite_metrics, cases=cases)

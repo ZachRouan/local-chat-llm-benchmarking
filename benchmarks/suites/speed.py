@@ -26,7 +26,7 @@ class SpeedSuite(BenchmarkSuite):
         ("Water boiling point", "At what temperature does water boil at sea level, in Celsius and Fahrenheit?"),
     ]
 
-    async def run(self, client: AppClient, context_length: int, config: dict) -> SuiteResult:
+    async def run(self, client: AppClient, context_length: int, config: dict, on_case_done=None) -> SuiteResult:
         cases: list[CaseResult] = []
         all_metrics: list[dict] = []
         runs_per_case = config.get("runs_per_case", 1)
@@ -47,6 +47,8 @@ class SpeedSuite(BenchmarkSuite):
             cases.append(CaseResult(
                 name=name, prompt=prompt, metrics=avg_metrics, runs=runs, details={},
             ))
+            if on_case_done:
+                on_case_done(cases[-1])
 
         return SuiteResult(
             suite_name=self.name,
