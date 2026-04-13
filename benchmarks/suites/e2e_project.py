@@ -1033,8 +1033,11 @@ class E2EProjectSuite(BenchmarkSuite):
     async def run(self, client: AppClient, context_length: int, config: dict) -> SuiteResult:
         cases: list[CaseResult] = []
         runs_per_case = config.get("runs_per_case", 1)
+        levels = config.get("levels")
 
         for case_def in E2E_CASES:
+            if levels and case_def["level"] not in levels:
+                continue
             runs: list[RunResult] = []
 
             for run_idx in range(runs_per_case):

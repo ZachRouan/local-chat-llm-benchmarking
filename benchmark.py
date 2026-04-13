@@ -42,6 +42,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--temperature", type=float, help="Override temperature")
     parser.add_argument("--max-tokens", type=int, help="Override max tokens")
     parser.add_argument("--runs", type=int, default=1, help="Runs per test case (default: 1)")
+    parser.add_argument("--level", help="Only run cases at these levels (e.g., 6 or 6,7)")
     return parser.parse_args()
 
 
@@ -85,6 +86,8 @@ async def cmd_run(args: argparse.Namespace) -> None:
         env_overrides["LLAMA_MAX_TOKENS"] = str(args.max_tokens)
 
     config = {"runs_per_case": args.runs}
+    if args.level:
+        config["levels"] = {int(l.strip()) for l in args.level.split(",")}
 
     client = AppClient(
         server=args.server,
