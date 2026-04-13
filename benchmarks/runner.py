@@ -220,10 +220,16 @@ class AppClient:
         metrics: dict = {"ttft_ms": round(ttft_ms, 1)}
 
         if stats_entries:
+            # Sum tokens and duration across all iterations
+            total_tokens = sum(s.get("total_tokens") or 0 for s in stats_entries)
+            total_duration = sum(s.get("duration_s") or 0 for s in stats_entries)
+            metrics["total_tokens"] = total_tokens
+            metrics["duration_s"] = round(total_duration, 1)
+            # tok/s averaged across iterations (total tokens / total duration)
+            if total_duration > 0:
+                metrics["tok_s"] = round(total_tokens / total_duration, 1)
+            # Context from the last stats line (cumulative)
             last = stats_entries[-1]
-            metrics["tok_s"] = last.get("tok_s")
-            metrics["total_tokens"] = last.get("total_tokens")
-            metrics["duration_s"] = last.get("duration_s")
             metrics["context_used"] = last.get("context_used")
             metrics["context_max"] = last.get("context_max")
             metrics["context_pct"] = last.get("context_pct")

@@ -36,6 +36,13 @@ def test_parse_response_with_tool_calls():
     assert result.metrics["iterations"] == 2
     assert result.metrics["tool_calls"] == 2
     assert result.metrics["tool_errors"] == 0
+    # Tokens and duration should be summed across iterations
+    assert result.metrics["total_tokens"] == 150  # 100 + 50
+    assert result.metrics["duration_s"] == 6.0  # 4.0 + 2.0
+    assert result.metrics["tok_s"] == 25.0  # 150 / 6.0
+    # Context from last stats line
+    assert result.metrics["context_used"] == 350
+    assert result.metrics["context_pct"] == 9
 
 
 def test_parse_response_with_tool_errors():
