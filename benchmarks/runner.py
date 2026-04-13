@@ -25,16 +25,24 @@ class PromptResult:
 
 
 class AppClient:
-    """Wraps the local-chat-llm subprocess for benchmarking."""
+    """Wraps the local-chat-llm subprocess for benchmarking.
 
-    _PROMPT_RE = re.compile(r"^(You|Agent) > $")
+    Reads stdout byte-by-byte into a buffer, since the chat app uses
+    input() which writes prompts without a trailing newline.
+    """
+
+    _PROMPT_RE = re.compile(r"(You|Agent) > $")
+    _CHOICE_RE = re.compile(r"Choice: $")
     _MENU_CHOICE_RE = re.compile(r"\[(\d+)\]")
-    _RESUME_RE = re.compile(r"Resume previous session.*\?", re.IGNORECASE)
-    _TIMEOUT = 120  # seconds
+    _RESUME_RE = re.compile(r"Resume previous session.*\?.*$", re.MULTILINE | re.IGNORECASE)
+    _YN_RE = re.compile(r"\(y/n\)\s*$")
+    _TIMEOUT = 180  # seconds
 
     def __init__(
         self,
         server: str,
+        app_python: str | None = None,
+        app_main: str | None = None,
         env_overrides: dict[str, str] | None = None,
     ):
         self.server = server
@@ -42,6 +50,28 @@ class AppClient:
         self.context_length: int | None = None
         self._process: asyncio.subprocess.Process | None = None
         self._env_overrides = env_overrides or {}
+        # Resolve the llama-chat script to find the app's Python and main.py
+        self._app_python = app_python
+        self._app_main = app_main
+        if not self._app_python or not self._app_main:
+            self._resolve_app_paths()
+
+    def _resolve_app_paths(self) -> None:
+        """Find the app's Python interpreter and main.py from llama-chat."""
+        import shutil
+        import subprocess
+        llama_chat = shutil.which("llama-chat")
+        if not llama_chat:
+            raise AppClientError("llama-chat not found in PATH")
+        # Resolve symlinks to find the project directory
+        resolved = Path(llama_chat).resolve()
+        project_dir = resolved.parent
+        self._app_main = self._app_main or str(project_dir / "main.py")
+        self._app_python = self._app_python or str(project_dir / ".venv" / "bin" / "python")
+        if not Path(self._app_main).exists():
+            raise AppClientError(f"main.py not found at {self._app_main}")
+        if not Path(self._app_python).exists():
+            raise AppClientError(f"Python not found at {self._app_python}")
 
     async def start(self, cwd: str | Path | None = None) -> None:
         """Launch the chat app and navigate through startup menus.
@@ -52,10 +82,11 @@ class AppClient:
         """
         env = os.environ.copy()
         env["LLAMA_SERVERS"] = self.server
+        env["PYTHONUNBUFFERED"] = "1"
         env.update(self._env_overrides)
 
         self._process = await asyncio.create_subprocess_exec(
-            "local-llm",
+            self._app_python, "-u", self._app_main,
             stdin=asyncio.subprocess.PIPE,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
@@ -67,35 +98,38 @@ class AppClient:
 
     async def _navigate_startup(self) -> None:
         """Read startup output, handle model selection and session resume."""
-        buffer = ""
+        all_output = ""
         while True:
-            line = await self._read_line()
-            buffer += line
+            chunk = await self._read_until_prompt_or_line()
+            all_output += chunk
 
-            # Session resume prompt
-            if self._RESUME_RE.search(line):
+            # Session resume prompt (y/n)
+            if self._RESUME_RE.search(chunk) or self._YN_RE.search(chunk):
                 await self._write("n\n")
                 continue
 
-            # Model selection menu — pick the first selectable option
-            if "Select a model:" in buffer:
-                while "Choice:" not in buffer:
-                    line = await self._read_line()
-                    buffer += line
-                matches = self._MENU_CHOICE_RE.findall(buffer)
+            # Model selection — "Choice: " prompt
+            if self._CHOICE_RE.search(chunk):
+                # Menu items were in earlier lines — search all output
+                matches = self._MENU_CHOICE_RE.findall(all_output)
                 if matches:
                     await self._write(f"{matches[0]}\n")
-                buffer = ""
                 continue
 
-            # Banner with model info — extract context length
-            if "Context" in line and "tokens" in line:
-                m = re.search(r"([\d,]+)\s+tokens", line)
+            # Banner with context length
+            if "Context" in chunk and "tokens" in chunk:
+                m = re.search(r"([\d,]+)\s+tokens", chunk)
                 if m:
                     self.context_length = int(m.group(1).replace(",", ""))
 
+            # Extract model name from banner
+            if "Model" in chunk:
+                m = re.search(r"Model\s+(\S+)", chunk)
+                if m:
+                    self.model = m.group(1).strip()
+
             # Ready for input
-            if self._PROMPT_RE.search(line.strip()):
+            if self._PROMPT_RE.search(chunk):
                 break
 
     async def send_prompt(self, text: str) -> PromptResult:
@@ -107,15 +141,22 @@ class AppClient:
         first_output_at: float | None = None
 
         while True:
-            line = await self._read_line()
+            chunk = await self._read_until_prompt_or_line()
 
-            if self._PROMPT_RE.search(line.strip()):
+            # Check if we hit the next prompt
+            if self._PROMPT_RE.search(chunk):
+                # There might be a final line before the prompt on the same chunk
+                before_prompt = self._PROMPT_RE.sub("", chunk).strip()
+                if before_prompt:
+                    if first_output_at is None:
+                        first_output_at = time.monotonic()
+                    lines.append(before_prompt + "\n")
                 break
 
-            if first_output_at is None and line.strip():
+            if first_output_at is None and chunk.strip():
                 first_output_at = time.monotonic()
 
-            lines.append(line)
+            lines.append(chunk)
 
         if first_output_at is None:
             first_output_at = time.monotonic()
@@ -126,8 +167,8 @@ class AppClient:
         """Send a slash command and wait for the prompt to return."""
         await self._write(command + "\n")
         while True:
-            line = await self._read_line()
-            if self._PROMPT_RE.search(line.strip()):
+            chunk = await self._read_until_prompt_or_line()
+            if self._PROMPT_RE.search(chunk):
                 break
 
     async def stop(self) -> None:
@@ -200,26 +241,58 @@ class AppClient:
             tool_log=tool_log,
         )
 
-    async def _read_line(self) -> str:
-        """Read a line from stdout with timeout."""
+    async def _read_until_prompt_or_line(self) -> str:
+        """Read from stdout until we get a complete line or an input prompt.
+
+        The chat app uses input() which writes prompts like "You > " and
+        "Choice: " without a trailing newline. We read byte-by-byte into
+        a buffer and return when we see either a newline or a known prompt
+        pattern at the end of the buffer.
+        """
         if not self._process or not self._process.stdout:
             raise AppClientError("Process not started")
-        try:
-            data = await asyncio.wait_for(
-                self._process.stdout.readline(),
-                timeout=self._TIMEOUT,
-            )
-        except asyncio.TimeoutError:
-            raise AppClientError(
-                f"Timeout: no output from chat app in {self._TIMEOUT}s"
-            )
-        if not data:
-            stderr = ""
-            if self._process.stderr:
-                stderr_data = await self._process.stderr.read()
-                stderr = stderr_data.decode(errors="replace")
-            raise AppClientError(f"Chat app exited unexpectedly. stderr: {stderr}")
-        return data.decode(errors="replace")
+
+        buf = bytearray()
+        deadline = asyncio.get_event_loop().time() + self._TIMEOUT
+
+        while True:
+            remaining = deadline - asyncio.get_event_loop().time()
+            if remaining <= 0:
+                raise AppClientError(
+                    f"Timeout: no output from chat app in {self._TIMEOUT}s"
+                )
+
+            try:
+                byte = await asyncio.wait_for(
+                    self._process.stdout.read(1),
+                    timeout=remaining,
+                )
+            except asyncio.TimeoutError:
+                raise AppClientError(
+                    f"Timeout: no output from chat app in {self._TIMEOUT}s"
+                )
+
+            if not byte:
+                stderr = ""
+                if self._process.stderr:
+                    stderr_data = await self._process.stderr.read()
+                    stderr = stderr_data.decode(errors="replace")
+                raise AppClientError(f"Chat app exited unexpectedly. stderr: {stderr}")
+
+            buf.extend(byte)
+            text = buf.decode(errors="replace")
+
+            # Complete line
+            if byte == b"\n":
+                return text
+
+            # Check for input prompts (no newline)
+            if self._PROMPT_RE.search(text):
+                return text
+            if self._CHOICE_RE.search(text):
+                return text
+            if self._YN_RE.search(text):
+                return text
 
     async def _write(self, text: str) -> None:
         """Write to stdin."""

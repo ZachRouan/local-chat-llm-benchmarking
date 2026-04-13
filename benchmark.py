@@ -5,9 +5,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-import shutil
 import sys
-import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -93,12 +91,9 @@ async def cmd_run(args: argparse.Namespace) -> None:
         env_overrides=env_overrides,
     )
 
-    # Launch from a clean temp dir so non-agent suites can't touch real files
-    scratch_dir = Path(tempfile.mkdtemp(prefix="bench-scratch-"))
-
     try:
-        print(f"Starting local-chat-llm on {args.server}...")
-        await client.start(cwd=scratch_dir)
+        print(f"Starting local-chat-llm on {args.server}...", flush=True)
+        await client.start()
         print(f"Connected. Model: {client.model or 'unknown'}, Context: {client.context_length or 'unknown'}")
         print()
 
@@ -161,7 +156,6 @@ async def cmd_run(args: argparse.Namespace) -> None:
         sys.exit(1)
     finally:
         await client.stop()
-        shutil.rmtree(scratch_dir, ignore_errors=True)
 
 
 def main() -> None:
