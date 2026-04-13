@@ -197,9 +197,12 @@ class AppClient:
         tool_errors = 0
 
         for line in lines:
-            stats = parse_stats_line(line)
-            if stats:
+            stats_result = parse_stats_line(line)
+            if stats_result:
+                stats, preceding_text = stats_result
                 stats_entries.append(stats)
+                if preceding_text:
+                    response_parts.append(preceding_text + "\n")
                 continue
 
             tc = parse_tool_call_line(line)

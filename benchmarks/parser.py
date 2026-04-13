@@ -14,6 +14,12 @@ _STATS_RE = re.compile(
     r"(?:\s+·\s+context:\s+([\d,]+)/([\d,]+)\s+\((\d+)%\))?"
 )
 
+# Matches context-only stats lines from tool call iterations:
+# "context: 133/100,096 (0%)"
+_CONTEXT_ONLY_RE = re.compile(
+    r"^context:\s+([\d,]+)/([\d,]+)\s+\((\d+)%\)\s*$"
+)
+
 # Matches: "→ read_file: main.py"
 _TOOL_CALL_RE = re.compile(r"→\s+(\w+):\s+(.*)")
 
@@ -22,17 +28,39 @@ _TOOL_RESULT_SUCCESS_RE = re.compile(r"\s*✓\s*(.*)")
 _TOOL_RESULT_FAILURE_RE = re.compile(r"\s*✗\s*(.*)")
 
 
-def parse_stats_line(line: str) -> dict | None:
-    """Parse a stats line into a metrics dict. Returns None if not a stats line."""
+def parse_stats_line(line: str) -> tuple[dict, str] | None:
+    """Parse a stats line into a metrics dict.
+
+    Returns (metrics_dict, preceding_text) or None if not a stats line.
+    The preceding_text is any response text that appeared before the stats
+    on the same line (e.g., "The answer is 4.    7 tokens in 0.3s ...").
+    """
+    # Check for context-only lines first (tool call iteration stats)
+    m = _CONTEXT_ONLY_RE.match(line.strip())
+    if m:
+        return {
+            "total_tokens": 0,
+            "duration_s": None,
+            "tok_s": None,
+            "context_used": int(m.group(1).replace(",", "")),
+            "context_max": int(m.group(2).replace(",", "")),
+            "context_pct": int(m.group(3)),
+        }, ""
+
     m = _STATS_RE.search(line)
     if not m:
         return None
+
     total_tokens = int(m.group(1))
     duration_s = float(m.group(2)) if m.group(2) else None
     tok_s = float(m.group(3)) if m.group(3) else None
     context_used = int(m.group(4).replace(",", "")) if m.group(4) else None
     context_max = int(m.group(5).replace(",", "")) if m.group(5) else None
     context_pct = int(m.group(6)) if m.group(6) else None
+
+    # Extract any text before the stats match
+    preceding_text = line[:m.start()].rstrip()
+
     return {
         "total_tokens": total_tokens,
         "duration_s": duration_s,
@@ -40,7 +68,7 @@ def parse_stats_line(line: str) -> dict | None:
         "context_used": context_used,
         "context_max": context_max,
         "context_pct": context_pct,
-    }
+    }, preceding_text
 
 
 def parse_tool_call_line(line: str) -> dict | None:
