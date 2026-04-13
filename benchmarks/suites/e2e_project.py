@@ -125,16 +125,29 @@ def _case11_verify(work_dir: Path, response: str) -> bool:
 def _case12_setup(work_dir: Path) -> None:
     pass
 
+def _find_script(work_dir: Path, candidates: list[str]) -> str | None:
+    """Find a script by name, searching the root and one level of subdirectories."""
+    for name in candidates:
+        if (work_dir / name).exists():
+            return name
+    # Search subdirectories
+    for sub in work_dir.iterdir():
+        if sub.is_dir() and not sub.name.startswith(".") and sub.name != "__pycache__":
+            for name in candidates:
+                if (sub / name).exists():
+                    return str(sub.relative_to(work_dir) / name)
+    return None
+
+
 def _case12_verify(work_dir: Path, response: str) -> bool:
     port = find_free_port()
-    # Try common server filenames
-    server_script = None
-    for name in ["server.py", "app.py", "api.py", "main.py"]:
-        if (work_dir / name).exists():
-            server_script = name
-            break
+    server_script = _find_script(work_dir, ["server.py", "app.py", "api.py", "main.py"])
     if not server_script:
         return False
+
+    # Clean up any data the model left from its own testing
+    for f in work_dir.rglob("notes.json"):
+        f.unlink()
 
     proc = start_server(work_dir, server_script, str(port))
     if not wait_for_port(port, timeout=10):
@@ -164,6 +177,8 @@ def _case12_verify(work_dir: Path, response: str) -> bool:
         notes = json.loads(body)
         if isinstance(notes, dict):
             notes = notes.get("notes", notes.get("data", []))
+            if isinstance(notes, dict):
+                notes = list(notes.values())
         if not isinstance(notes, list) or len(notes) < 2:
             return False
 
@@ -206,20 +221,35 @@ def _case13_setup(work_dir: Path) -> None:
     pass
 
 def _case13_verify(work_dir: Path, response: str) -> bool:
-    r = run_python(work_dir, "generate.py")
+    # Find the scripts — may be in root or a subdirectory
+    generate = _find_script(work_dir, ["generate.py"])
+    transform = _find_script(work_dir, ["transform.py"])
+    report = _find_script(work_dir, ["report.py"])
+    if not generate or not transform or not report:
+        return False
+
+    # Run from the directory containing the scripts
+    script_dir = (work_dir / generate).parent
+
+    r = run_python(script_dir, (work_dir / generate).name)
     if r.returncode != 0:
         return False
-    csv_files = list(work_dir.glob("*.csv"))
+
+    # Check CSV — search recursively
+    csv_files = list(script_dir.rglob("*.csv"))
     if not csv_files:
         return False
     lines = csv_files[0].read_text().strip().split("\n")
     if len(lines) < 100:
         return False
 
-    r = run_python(work_dir, "transform.py")
+    r = run_python(script_dir, (work_dir / transform).name)
     if r.returncode != 0:
         return False
-    json_files = [f for f in work_dir.glob("*.json") if f.name != ".local-chat-llm-permissions"]
+
+    # Check JSON — search recursively, exclude permissions file
+    json_files = [f for f in script_dir.rglob("*.json")
+                  if f.name != ".local-chat-llm-permissions"]
     if not json_files:
         return False
     try:
@@ -229,13 +259,13 @@ def _case13_verify(work_dir: Path, response: str) -> bool:
     if not isinstance(data, (dict, list)):
         return False
 
-    r = run_python(work_dir, "report.py")
+    r = run_python(script_dir, (work_dir / report).name)
     if r.returncode != 0:
         return False
     if len(r.stdout.strip()) < 10:
         return False
 
-    return run_pytest(work_dir)
+    return run_pytest(script_dir)
 
 
 # ---- Case 14: Configuration system ----
