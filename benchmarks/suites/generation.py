@@ -25,7 +25,7 @@ class GenerationSuite(BenchmarkSuite):
     async def run(self, client: AppClient, context_length: int, config: dict, on_case_done=None) -> SuiteResult:
         cases: list[CaseResult] = []
         all_metrics: list[dict] = []
-        runs_per_case = config.get("runs_per_case", 1)
+        runs_per_case = config.get("runs_per_case") or self.default_runs
 
         for name, prompt in self.prompts:
             runs: list[RunResult] = []

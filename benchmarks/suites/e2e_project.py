@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import csv as _csv
 import json
 import os
 import socket
@@ -25,6 +26,8 @@ from benchmarks.suites.verify_helpers import (
     tcp_send,
     run_pytest,
 )
+
+from benchmarks.runner import AppClientError
 
 if TYPE_CHECKING:
     from benchmarks.runner import AppClient
@@ -79,13 +82,13 @@ def _case10_verify(work_dir: Path, response: str) -> bool:
         except json.JSONDecodeError:
             return False
 
+    # Task says "Include test_taskman.py with tests and make sure they pass" —
+    # a missing test file is a failure, not a skip.
     test_file = work_dir / "test_taskman.py"
-    if test_file.exists():
-        r = run_python(work_dir, "-m", "pytest", "test_taskman.py", "-v")
-        if r.returncode != 0:
-            return False
-
-    return True
+    if not test_file.exists():
+        return False
+    r = run_python(work_dir, "-m", "pytest", "test_taskman.py", "-v")
+    return r.returncode == 0
 
 
 # ---- Case 11: Multi-module project ----
@@ -101,23 +104,30 @@ def _case11_verify(work_dir: Path, response: str) -> bool:
     r = run_python(work_dir, "cli.py", "shorten", "https://example.com")
     if r.returncode != 0:
         return False
-    code = r.stdout.strip().split()[-1]
-    if not code:
+    raw = r.stdout.strip().split()[-1] if r.stdout.strip() else ""
+    if not raw:
+        return False
+    # The tool may print the bare code or a full short URL — try the last
+    # token as-is and, if it contains slashes, its final path segment.
+    code_candidates = [raw]
+    if "/" in raw:
+        code_candidates.append(raw.rstrip("/").rsplit("/", 1)[-1])
+
+    resolved = False
+    for code in code_candidates:
+        r = run_python(work_dir, "cli.py", "resolve", code)
+        if r.returncode == 0 and "https://example.com" in r.stdout:
+            resolved = True
+            break
+    if not resolved:
         return False
 
-    r = run_python(work_dir, "cli.py", "resolve", code)
-    if r.returncode != 0:
-        return False
-    if "https://example.com" not in r.stdout:
-        return False
-
+    # "Include tests and make sure they pass" — tests are required.
     test_files = list(work_dir.glob("test_*.py"))
-    if test_files:
-        r = run_python(work_dir, "-m", "pytest", "-v")
-        if r.returncode != 0:
-            return False
-
-    return True
+    if not test_files:
+        return False
+    r = run_python(work_dir, "-m", "pytest", "-v")
+    return r.returncode == 0
 
 
 # ---- Case 12: REST API with persistence ----
@@ -139,9 +149,44 @@ def _find_script(work_dir: Path, candidates: list[str]) -> str | None:
     return None
 
 
+def _notes_list(body: str) -> list | None:
+    """Normalize a GET /notes body into a list of notes, or None if unparseable."""
+    try:
+        notes = json.loads(body)
+    except json.JSONDecodeError:
+        return None
+    if isinstance(notes, dict):
+        notes = notes.get("notes", notes.get("data", notes))
+        if isinstance(notes, dict):
+            notes = list(notes.values())
+    return notes if isinstance(notes, list) else None
+
+
+def _find_script_by_content(work_dir: Path, markers: tuple[str, ...]) -> str | None:
+    """Find a .py file whose source contains any marker — fallback when the
+    model picked a filename outside the candidate list (the task doesn't
+    mandate one)."""
+    dirs = [work_dir] + [d for d in work_dir.iterdir()
+                         if d.is_dir() and not d.name.startswith(".") and d.name != "__pycache__"]
+    for d in dirs:
+        for f in sorted(d.glob("*.py")):
+            if f.name.startswith("test"):
+                continue
+            try:
+                src = f.read_text()
+            except OSError:
+                continue
+            if any(m in src for m in markers):
+                return str(f.relative_to(work_dir))
+    return None
+
+
 def _case12_verify(work_dir: Path, response: str) -> bool:
     port = find_free_port()
     server_script = _find_script(work_dir, ["server.py", "app.py", "api.py", "main.py"])
+    if not server_script:
+        server_script = _find_script_by_content(
+            work_dir, ("http.server", "HTTPServer", "BaseHTTPRequestHandler"))
     if not server_script:
         return False
 
@@ -174,12 +219,8 @@ def _case12_verify(work_dir: Path, response: str) -> bool:
         status, body = http_request("GET", f"{base}/notes")
         if status != 200:
             return False
-        notes = json.loads(body)
-        if isinstance(notes, dict):
-            notes = notes.get("notes", notes.get("data", []))
-            if isinstance(notes, dict):
-                notes = list(notes.values())
-        if not isinstance(notes, list) or len(notes) < 2:
+        notes = _notes_list(body)
+        if notes is None or len(notes) != 2:
             return False
 
         # Get one note
@@ -193,18 +234,31 @@ def _case12_verify(work_dir: Path, response: str) -> bool:
         if status not in (200, 204):
             return False
 
-        # Verify deletion
+        # Verify deletion actually removed it: list drops to 1 and the
+        # deleted id no longer resolves.
         status, body = http_request("GET", f"{base}/notes")
         if status != 200:
             return False
+        notes = _notes_list(body)
+        if notes is None or len(notes) != 1:
+            return False
+        status, _ = http_request("GET", f"{base}/notes/{note_id}")
+        if status == 200:
+            return False
 
-        # Restart and check persistence
+        # Restart and check persistence: the surviving note must still be
+        # there — a 200 with an empty list is exactly the no-persistence bug.
         stop_server(proc)
         proc = start_server(work_dir, server_script, str(port))
         if not wait_for_port(port, timeout=10):
             return False
         status, body = http_request("GET", f"{base}/notes")
         if status != 200:
+            return False
+        notes = _notes_list(body)
+        if notes is None or len(notes) != 1:
+            return False
+        if "Note 2" not in body:
             return False
 
         stop_server(proc)
@@ -219,6 +273,71 @@ def _case12_verify(work_dir: Path, response: str) -> bool:
 
 def _case13_setup(work_dir: Path) -> None:
     pass
+
+
+def _csv_city_stats(csv_path: Path) -> dict[str, tuple[int, float]]:
+    """Compute {city: (count, avg_age)} from the generated CSV. Empty on failure."""
+    try:
+        with csv_path.open() as f:
+            rows = list(_csv.DictReader(f))
+    except Exception:
+        return {}
+    stats: dict[str, list[int]] = {}
+    for row in rows:
+        norm = {k.strip().lower(): (v or "").strip() for k, v in row.items() if k}
+        city = norm.get("city")
+        age = norm.get("age")
+        if not city or not age:
+            return {}
+        try:
+            stats.setdefault(city, []).append(int(float(age)))
+        except ValueError:
+            return {}
+    return {c: (len(a), sum(a) / len(a)) for c, a in stats.items()}
+
+
+def _extract_city_stats(data) -> dict[str, tuple[int, float | None]]:
+    """Pull {city: (count, avg_age_or_None)} out of the model's JSON, tolerating
+    common shapes: {city: {...}} mappings or lists of per-city dicts."""
+
+    def _num(d: dict, *keywords) -> float | None:
+        for k, v in d.items():
+            if isinstance(v, (int, float)) and any(kw in k.lower() for kw in keywords):
+                return float(v)
+        return None
+
+    found: dict[str, tuple[int, float | None]] = {}
+
+    def _walk(node):
+        if isinstance(node, dict):
+            # Shape A: {"Boston": {"count": 12, "avg_age": 41.2}, ...}
+            for k, v in node.items():
+                if isinstance(v, dict):
+                    count = _num(v, "count", "users", "total", "n")
+                    avg = _num(v, "avg", "average", "mean", "age")
+                    if count is not None and k not in found:
+                        found[k] = (int(count), avg)
+                    _walk(v)
+                elif isinstance(v, list):
+                    _walk(v)
+        elif isinstance(node, list):
+            # Shape B: [{"city": "Boston", "count": 12, "avg_age": 41.2}, ...]
+            for item in node:
+                if isinstance(item, dict):
+                    city = None
+                    for k, v in item.items():
+                        if isinstance(v, str) and "city" in k.lower():
+                            city = v
+                    if city:
+                        count = _num(item, "count", "users", "total", "n")
+                        avg = _num(item, "avg", "average", "mean", "age")
+                        if count is not None and city not in found:
+                            found[city] = (int(count), avg)
+                    else:
+                        _walk(item)
+
+    _walk(data)
+    return found
 
 def _case13_verify(work_dir: Path, response: str) -> bool:
     # Find the scripts — may be in root or a subdirectory
@@ -257,6 +376,23 @@ def _case13_verify(work_dir: Path, response: str) -> bool:
     except json.JSONDecodeError:
         return False
     if not isinstance(data, (dict, list)):
+        return False
+
+    # The task demands grouping by city with counts and average ages —
+    # cross-check the JSON against stats computed from the CSV itself,
+    # so "any dict" can't false-pass.
+    expected = _csv_city_stats(csv_files[0])
+    if not expected:
+        return False
+    found = _extract_city_stats(data)
+    if not found:
+        return False
+    matched = 0
+    for city, (count, avg) in expected.items():
+        got = found.get(city)
+        if got and got[0] == count and (got[1] is None or abs(got[1] - avg) <= 0.6):
+            matched += 1
+    if matched < max(1, int(len(expected) * 0.8)):
         return False
 
     r = run_python(script_dir, (work_dir / report).name)
@@ -851,6 +987,11 @@ def _case23_verify(work_dir: Path, response: str) -> bool:
     if not plugins_dir.exists():
         return False
 
+    # Snapshot the model's plugins: the probes below add/remove plugin files,
+    # and grading the model's own pytest suite against that mutated state
+    # produced false failures. Restore before running its tests.
+    plugin_snapshot = {p.name: p.read_text() for p in plugins_dir.glob("*.py")}
+
     (plugins_dir / "reverse.py").write_text(textwrap.dedent("""\
         from processor import Plugin
 
@@ -868,6 +1009,14 @@ def _case23_verify(work_dir: Path, response: str) -> bool:
         r = run_python(work_dir, "cli.py", str(input_file))
         if r.returncode != 0:
             return False
+
+    # Restore the plugins dir to the model's original state before grading
+    # its test suite.
+    for p in plugins_dir.glob("*.py"):
+        if p.name not in plugin_snapshot:
+            p.unlink()
+    for name, content in plugin_snapshot.items():
+        (plugins_dir / name).write_text(content)
 
     return run_pytest(work_dir)
 
@@ -1059,10 +1208,12 @@ E2E_CASES = [
 class E2EProjectSuite(BenchmarkSuite):
     name = "e2e_project"
     description = "End-to-end project creation — levels 5-10"
+    # Long cases: single run by default; pass --runs to raise.
+    default_runs = 1
 
     async def run(self, client: AppClient, context_length: int, config: dict, on_case_done=None) -> SuiteResult:
         cases: list[CaseResult] = []
-        runs_per_case = config.get("runs_per_case", 1)
+        runs_per_case = config.get("runs_per_case") or self.default_runs
         levels = config.get("levels")
 
         for case_def in E2E_CASES:
@@ -1080,7 +1231,16 @@ class E2EProjectSuite(BenchmarkSuite):
                 await client.start(cwd=work_dir)
                 await client.send_command("/agent on")
 
-                result = await client.send_prompt(case_def["task"])
+                try:
+                    result = await client.send_prompt(case_def["task"])
+                except AppClientError as e:
+                    # One slow/dead case must not abort the whole run.
+                    runs.append(RunResult(
+                        passed=False,
+                        metrics={"error": str(e)},
+                        details={"error": str(e)},
+                    ))
+                    continue
 
                 passed = case_def["verify"](work_dir, result.response_text)
 

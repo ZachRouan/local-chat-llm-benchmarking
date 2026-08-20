@@ -28,17 +28,25 @@ class ContextSuite(BenchmarkSuite):
     description = "Context window scaling — measures tok/s degradation as context fills"
 
     fill_levels = [0.10, 0.25, 0.50, 0.75, 0.90]
-    question = "Based on everything above, what is the main topic being discussed? Answer in one sentence."
+    question = "In one sentence, what is the main topic of the text that follows?"
+    # Reserve room for the response: prompt tokens + max_tokens must fit in ctx.
+    _OUTPUT_RESERVE_TOKENS = 9000
 
     async def run(self, client: AppClient, context_length: int, config: dict, on_case_done=None) -> SuiteResult:
         cases: list[CaseResult] = []
-        runs_per_case = config.get("runs_per_case", 1)
+        runs_per_case = config.get("runs_per_case") or self.default_runs
 
         for level in self.fill_levels:
-            target_tokens = int(context_length * level)
+            target_tokens = min(
+                int(context_length * level),
+                max(context_length - self._OUTPUT_RESERVE_TOKENS, 1024),
+            )
             target_chars = target_tokens * 4
             filler = self._generate_filler(target_chars)
-            prompt = f"{filler}\n\n{self.question}"
+            # Single line: the app reads prompts with input(), so any newline
+            # splits the prompt into separate turns. Level-specific prefix
+            # defeats server prefix-cache reuse across fill levels.
+            prompt = f"[fill test {int(level * 100)}] {self.question} {filler}".replace("\n", " ")
             name = f"{int(level * 100)}% fill"
 
             runs: list[RunResult] = []

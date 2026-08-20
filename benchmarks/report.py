@@ -7,14 +7,37 @@ from rich.table import Table
 from rich.text import Text
 
 
-def _format_delta(delta_pct: float | None) -> Text:
-    """Format a delta percentage with color."""
+# Metrics where a DECREASE is an improvement. Everything else (tok/s,
+# pass rates, prefill) improves upward; unknown metrics render neutral.
+_LOWER_IS_BETTER = (
+    "ttft_ms", "first_content_ms", "duration_s", "prompt_ms",
+    "tool_errors", "iterations", "tool_calls", "reasoning_chars",
+)
+_HIGHER_IS_BETTER = (
+    "tok_s", "prefill_tok_s", "pass_rate", "parse_rate", "total_tokens",
+)
+# Perf metrics vary run-to-run; deltas inside this band are noise, not signal.
+_NOISE_FLOOR_PCT = 5.0
+
+
+def _format_delta(delta_pct: float | None, metric_name: str = "") -> Text:
+    """Format a delta percentage, colored by whether it's an improvement."""
     if delta_pct is None:
         return Text("—")
     sign = "+" if delta_pct >= 0 else ""
     text = f"{sign}{delta_pct:.1f}%"
-    color = "green" if delta_pct >= 0 else "red"
-    return Text(text, style=color)
+
+    if abs(delta_pct) < _NOISE_FLOOR_PCT:
+        return Text(text, style="dim")
+
+    name = metric_name.lower()
+    if any(k in name for k in _LOWER_IS_BETTER):
+        improved = delta_pct < 0
+    elif any(k in name for k in _HIGHER_IS_BETTER):
+        improved = delta_pct > 0
+    else:
+        return Text(text)
+    return Text(text, style="green" if improved else "red")
 
 
 def _pass_rate_str(runs: list[dict]) -> str:
@@ -33,7 +56,6 @@ def print_summary(data: dict, console: Console | None = None) -> None:
     model = data.get("model", "unknown")
     server = data.get("server", "unknown")
     label = data.get("label")
-    runs_per_case = data.get("runs_per_case", 1)
 
     console.print()
     title = f"Benchmark Results — {model} on {server}"
@@ -49,9 +71,12 @@ def print_summary(data: dict, console: Console | None = None) -> None:
         cases = suite_data.get("cases", [])
 
         has_pass_rates = any("pass_rate" in c.get("metrics", {}) for c in cases)
+        # Run counts are per-suite (each suite has its own default) — infer
+        # from the recorded runs rather than a global setting.
+        max_runs = max((len(c.get("runs", [])) for c in cases), default=1)
 
-        if has_pass_rates and runs_per_case > 1:
-            header = f"{suite_name} ({runs_per_case} runs per case)"
+        if has_pass_rates and max_runs > 1:
+            header = f"{suite_name} ({max_runs} runs per case)"
             console.print(f"[bold]{header}[/bold]")
             table = Table(show_header=True, box=None, padding=(0, 2))
             table.add_column("Case")
@@ -125,7 +150,7 @@ def print_delta_report(
                 else str(previous) if previous is not None
                 else "—"
             )
-            delta_text = _format_delta(d.get("delta_pct"))
+            delta_text = _format_delta(d.get("delta_pct"), metric_name)
             table.add_row(
                 f"{suite_name}.{metric_name}",
                 current_str,

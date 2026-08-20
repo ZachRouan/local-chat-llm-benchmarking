@@ -49,6 +49,10 @@ class BenchmarkSuite:
     """Base class for all benchmark suites."""
     name: str = ""
     description: str = ""
+    # Per-suite default when --runs is not passed; pass/fail suites override
+    # with >1 so single-flip variance at nonzero temperature isn't read as
+    # a real quality difference.
+    default_runs: int = 1
 
     async def run(self, client: AppClient, context_length: int, config: dict, on_case_done: ProgressCallback = None) -> SuiteResult:
         raise NotImplementedError

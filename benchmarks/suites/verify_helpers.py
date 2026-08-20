@@ -113,6 +113,19 @@ def tcp_send(host: str, port: int, message: str, timeout: float = 5) -> str:
 
 
 def run_pytest(work_dir: Path) -> bool:
-    """Run pytest in the work directory. Returns True if all tests pass."""
+    """Run pytest in the work directory. Returns True if all tests pass.
+
+    Exit code 5 means pytest collected nothing — retry with explicit paths of
+    test-looking files so valid suites with non-standard names (e.g. tests.py,
+    which default discovery ignores) still get run instead of false-failing.
+    """
     r = run_python(work_dir, "-m", "pytest", "-v", timeout=60)
+    if r.returncode == 5:
+        candidates = sorted(
+            f.name for f in work_dir.glob("*.py")
+            if f.name.startswith("test") or f.name.endswith("_test.py")
+        )
+        if not candidates:
+            return False
+        r = run_python(work_dir, "-m", "pytest", "-v", *candidates, timeout=60)
     return r.returncode == 0

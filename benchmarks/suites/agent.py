@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -91,7 +92,9 @@ def _case3_setup(work_dir: Path) -> None:
         (src / name).write_text(f"{name}\n")
 
 def _case3_verify(work_dir: Path, response: str) -> bool:
-    return "5" in response
+    # Word-boundary match so "15", "0.5", or a stray digit can't false-pass;
+    # response is model content only (no reasoning/tool output) via bench mode.
+    return bool(re.search(r"\b(5|five)\b", response, re.IGNORECASE))
 
 
 # ---- Case 4: Search and report ----
@@ -250,9 +253,13 @@ class AgentSuite(BenchmarkSuite):
     name = "agent"
     description = "Agent tool use — 9 cases across levels 1-4"
 
+    default_runs = 3
+
     async def run(self, client: AppClient, context_length: int, config: dict, on_case_done=None) -> SuiteResult:
+        from benchmarks.runner import AppClientError
+
         cases: list[CaseResult] = []
-        runs_per_case = config.get("runs_per_case", 1)
+        runs_per_case = config.get("runs_per_case") or self.default_runs
         levels = config.get("levels")
 
         for case_def in AGENT_CASES:
@@ -270,7 +277,17 @@ class AgentSuite(BenchmarkSuite):
                 await client.start(cwd=work_dir)
                 await client.send_command("/agent on")
 
-                result = await client.send_prompt(case_def["task"])
+                try:
+                    result = await client.send_prompt(case_def["task"])
+                except AppClientError as e:
+                    # One slow/dead case must not abort the whole run —
+                    # record the failure and move on.
+                    runs.append(RunResult(
+                        passed=False,
+                        metrics={"error": str(e)},
+                        details={"error": str(e)},
+                    ))
+                    continue
 
                 passed = case_def["verify"](work_dir, result.response_text)
 

@@ -1,19 +1,27 @@
-"""AppClient — drives local-chat-llm as a subprocess."""
+"""AppClient — drives local-chat-llm as a subprocess.
+
+Metrics come from the app's machine-readable @@BENCH@@ JSON lines
+(enabled via LLAMA_BENCH_JSON=1), never from scraping the rendered TTY
+output — rich's renderer drops code fences, wraps lines, and buffers the
+whole response in a pipe, so scraped text/timing is unusable for metrics.
+"""
 
 from __future__ import annotations
 
 import asyncio
+import json
 import os
 import re
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from benchmarks.parser import parse_stats_line, parse_tool_call_line, parse_tool_result_line
-
 
 class AppClientError(Exception):
     """Raised when the chat app subprocess fails."""
+
+
+BENCH_SENTINEL = "@@BENCH@@"
 
 
 @dataclass
@@ -22,6 +30,8 @@ class PromptResult:
     response_text: str
     metrics: dict
     tool_log: list[dict] = field(default_factory=list)
+    bench_records: list[dict] = field(default_factory=list)
+    system_fingerprint: str | None = None
 
 
 class AppClient:
@@ -36,7 +46,7 @@ class AppClient:
     _MENU_CHOICE_RE = re.compile(r"\[(\d+)\]")
     _RESUME_RE = re.compile(r"Resume previous session.*\?.*$", re.MULTILINE | re.IGNORECASE)
     _YN_RE = re.compile(r"\(y/n\)\s*$")
-    _TIMEOUT = 180  # seconds
+    _TIMEOUT = 600  # seconds
 
     def __init__(
         self,
@@ -48,6 +58,7 @@ class AppClient:
         self.server = server
         self.model: str | None = None
         self.context_length: int | None = None
+        self.last_fingerprint: str | None = None
         self._process: asyncio.subprocess.Process | None = None
         self._env_overrides = env_overrides or {}
         # Resolve the llama-chat script to find the app's Python and main.py
@@ -83,6 +94,7 @@ class AppClient:
         env = os.environ.copy()
         env["LLAMA_SERVERS"] = self.server
         env["PYTHONUNBUFFERED"] = "1"
+        env["LLAMA_BENCH_JSON"] = "1"
         env.update(self._env_overrides)
 
         self._process = await asyncio.create_subprocess_exec(
@@ -187,67 +199,100 @@ class AppClient:
         started_at: float,
         first_output_at: float,
     ) -> PromptResult:
-        """Parse collected output lines into a PromptResult."""
-        ttft_ms = (first_output_at - started_at) * 1000
+        """Build a PromptResult from the turn's @@BENCH@@ JSON records.
 
-        response_parts: list[str] = []
+        Fails closed: if the app emitted no bench records, metrics would
+        silently revert to garbage — raise instead.
+        """
+        records: list[dict] = []
+        for line in lines:
+            stripped = line.strip()
+            if stripped.startswith(BENCH_SENTINEL):
+                try:
+                    records.append(json.loads(stripped[len(BENCH_SENTINEL):]))
+                except json.JSONDecodeError:
+                    raise AppClientError(f"Malformed bench record: {stripped[:200]}")
+
+        if not records:
+            raise AppClientError(
+                "No @@BENCH@@ records in response — app not in bench mode or turn failed"
+            )
+
+        # Answer text: the model's actual content across iterations, never
+        # reasoning and never tool/command output.
+        response_text = "\n".join(
+            r["content"] for r in records if r.get("content")
+        ).strip()
+
         tool_log: list[dict] = []
-        stats_entries: list[dict] = []
         tool_calls = 0
         tool_errors = 0
-
-        for line in lines:
-            stats_result = parse_stats_line(line)
-            if stats_result:
-                stats, preceding_text = stats_result
-                stats_entries.append(stats)
-                if preceding_text:
-                    response_parts.append(preceding_text + "\n")
-                continue
-
-            tc = parse_tool_call_line(line)
-            if tc:
+        for r in records:
+            for t in r.get("tools", []):
                 tool_calls += 1
-                tool_log.append({"type": "call", **tc})
-                continue
-
-            tr = parse_tool_result_line(line)
-            if tr:
-                if not tr["success"]:
+                if not t.get("ok"):
                     tool_errors += 1
-                tool_log.append({"type": "result", **tr})
-                continue
+                tool_log.append({"type": "call", "tool_name": t.get("name"), "success": t.get("ok")})
 
-            response_parts.append(line)
+        metrics: dict = {}
+        first = records[0]
+        if first.get("first_token_ms") is not None:
+            metrics["ttft_ms"] = first["first_token_ms"]
+        if first.get("first_content_ms") is not None:
+            metrics["first_content_ms"] = first["first_content_ms"]
 
-        metrics: dict = {"ttft_ms": round(ttft_ms, 1)}
-
-        if stats_entries:
-            # Sum tokens and duration across all iterations
-            total_tokens = sum(s.get("total_tokens") or 0 for s in stats_entries)
-            total_duration = sum(s.get("duration_s") or 0 for s in stats_entries)
+        # Prefer server-side timings (authoritative decode rate and token
+        # counts); fall back to client-side stream measurements.
+        predicted_n = 0
+        predicted_ms = 0.0
+        prompt_ms = 0.0
+        have_timings = all(r.get("timings") for r in records)
+        if have_timings:
+            for r in records:
+                t = r["timings"]
+                predicted_n += t.get("predicted_n") or 0
+                predicted_ms += t.get("predicted_ms") or 0.0
+                prompt_ms += t.get("prompt_ms") or 0.0
+            metrics["total_tokens"] = predicted_n
+            metrics["duration_s"] = round((predicted_ms + prompt_ms) / 1000, 1)
+            metrics["prompt_ms"] = round(prompt_ms, 1)
+            if predicted_ms > 0:
+                metrics["tok_s"] = round(predicted_n / (predicted_ms / 1000), 1)
+            last_t = records[-1]["timings"]
+            if last_t.get("prompt_per_second"):
+                metrics["prefill_tok_s"] = round(last_t["prompt_per_second"], 1)
+            metrics["timings_source"] = "server"
+        else:
+            total_tokens = sum(r.get("tokens") or 0 for r in records)
+            total_duration = sum(r.get("client_duration_s") or 0 for r in records)
             metrics["total_tokens"] = total_tokens
             metrics["duration_s"] = round(total_duration, 1)
-            # tok/s averaged across iterations (total tokens / total duration)
             if total_duration > 0:
                 metrics["tok_s"] = round(total_tokens / total_duration, 1)
-            # Context from the last stats line (cumulative)
-            last = stats_entries[-1]
-            metrics["context_used"] = last.get("context_used")
-            metrics["context_max"] = last.get("context_max")
-            metrics["context_pct"] = last.get("context_pct")
+            metrics["timings_source"] = "client"
 
-        if tool_calls > 0 or len(stats_entries) > 1:
-            metrics["iterations"] = len(stats_entries)
+        last = records[-1]
+        metrics["context_used"] = last.get("context_total_tokens")
+        metrics["hit_max_tokens"] = any(r.get("hit_max_tokens") for r in records)
+        metrics["reasoning_chars"] = sum(r.get("reasoning_chars") or 0 for r in records)
+
+        if tool_calls > 0 or len(records) > 1:
+            metrics["iterations"] = len(records)
             metrics["tool_calls"] = tool_calls
             metrics["tool_errors"] = tool_errors
 
-        response_text = "".join(response_parts).strip()
+        fingerprint = next(
+            (r["system_fingerprint"] for r in records if r.get("system_fingerprint")), None
+        )
+        if fingerprint:
+            self.last_fingerprint = fingerprint
 
         return PromptResult(
             response_text=response_text,
             metrics=metrics,
             tool_log=tool_log,
+            bench_records=records,
+            system_fingerprint=fingerprint,
         )
 
     async def _read_until_prompt_or_line(self) -> str:

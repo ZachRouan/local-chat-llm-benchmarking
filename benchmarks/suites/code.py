@@ -14,11 +14,16 @@ if TYPE_CHECKING:
 
 
 def extract_python_code(text: str) -> str:
-    """Extract Python code from a response, handling fenced code blocks."""
+    """Extract Python code from a response, handling fenced code blocks.
+
+    Input is the model's raw content (bench mode preserves fences and line
+    lengths). The LAST fenced block is the model's final answer when it
+    emits multiple versions.
+    """
     pattern = r"```(?:python)?\s*\n(.*?)```"
     matches = re.findall(pattern, text, re.DOTALL)
     if matches:
-        return matches[0].strip()
+        return matches[-1].strip()
     lines = text.strip().split("\n")
     code_lines = []
     in_code = False
@@ -47,10 +52,12 @@ class CodeSuite(BenchmarkSuite):
         ("Flatten nested list", "Write a Python function called `flatten(lst)` that takes an arbitrarily nested list and returns a flat list of all elements. Only output the function, no explanation."),
     ]
 
+    default_runs = 3
+
     async def run(self, client: AppClient, context_length: int, config: dict, on_case_done=None) -> SuiteResult:
         cases: list[CaseResult] = []
         all_metrics: list[dict] = []
-        runs_per_case = config.get("runs_per_case", 1)
+        runs_per_case = config.get("runs_per_case") or self.default_runs
 
         for name, prompt in self.prompts:
             runs: list[RunResult] = []

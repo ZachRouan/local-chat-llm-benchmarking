@@ -29,7 +29,7 @@ class MultiTurnSuite(BenchmarkSuite):
 
     async def run(self, client: AppClient, context_length: int, config: dict, on_case_done=None) -> SuiteResult:
         cases: list[CaseResult] = []
-        runs_per_case = config.get("runs_per_case", 1)
+        runs_per_case = config.get("runs_per_case") or self.default_runs
 
         for run_idx in range(runs_per_case):
             if run_idx > 0:

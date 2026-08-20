@@ -52,7 +52,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--label", help="Tag this run with a label")
     parser.add_argument("--temperature", type=float, help="Override temperature")
     parser.add_argument("--max-tokens", type=int, help="Override max tokens")
-    parser.add_argument("--runs", type=int, default=1, help="Runs per test case (default: 1)")
+    parser.add_argument("--runs", type=int, default=None,
+                        help="Runs per test case (default: per-suite — 3 for pass/fail suites, 1 for perf suites)")
     parser.add_argument("--level", help="Only run cases at these levels (e.g., 6 or 6,7)")
     return parser.parse_args()
 
@@ -90,9 +91,16 @@ async def cmd_run(args: argparse.Namespace) -> None:
     else:
         suite_names = list(SUITE_REGISTRY.keys())
 
-    env_overrides: dict[str, str] = {}
-    if args.temperature is not None:
-        env_overrides["LLAMA_TEMPERATURE"] = str(args.temperature)
+    # Pin temperature explicitly (recorded in results) instead of silently
+    # inheriting whatever ~/.config/llama-chat/.env holds. Default 1.0 =
+    # Qwen's official thinking-mode setting; --temperature overrides.
+    temperature = args.temperature if args.temperature is not None else 1.0
+    env_overrides: dict[str, str] = {
+        "LLAMA_TEMPERATURE": str(temperature),
+        # Post-mortem showed level 9-10 builds hitting the 15-iteration cap
+        # mid-fix on self-diagnosed bugs; 25 gives complex cases room to land.
+        "LLAMA_MAX_TOOL_ITERATIONS": "25",
+    }
     if args.max_tokens is not None:
         env_overrides["LLAMA_MAX_TOKENS"] = str(args.max_tokens)
 
@@ -166,7 +174,18 @@ async def cmd_run(args: argparse.Namespace) -> None:
                 progress["current_case"] = case.name
                 _write_progress(progress)
 
-            result = await suite.run(client, context_length, config, on_case_done=on_case_done)
+            try:
+                result = await suite.run(client, context_length, config, on_case_done=on_case_done)
+            except AppClientError as e:
+                # A dead app/suite must not discard the suites already
+                # completed — record the error, restart the app, move on.
+                print(f"  Suite '{name}' failed: {e}", file=sys.stderr)
+                suite_results[name] = {"error": str(e), "metrics": {}, "cases": []}
+                await client.stop()
+                await client.start()
+                progress["suites_completed"] = suite_idx + 1
+                _write_progress(progress)
+                continue
 
             suite_results[name] = {
                 "metrics": result.metrics,
@@ -188,6 +207,22 @@ async def cmd_run(args: argparse.Namespace) -> None:
             progress["suites_completed"] = suite_idx + 1
             _write_progress(progress)
 
+            # Incremental save: timestamp is fixed at run start, so this
+            # overwrites the same file each time — an interrupted run (reboot,
+            # kill) keeps every completed suite instead of losing everything.
+            save_results({
+                "timestamp": started_at,
+                "model": client.model or "unknown",
+                "server": args.server,
+                "context_length": context_length,
+                "label": args.label,
+                "runs_per_case": args.runs,
+                "temperature": temperature,
+                "build_fingerprint": client.last_fingerprint,
+                "partial": True,
+                "suites": suite_results,
+            }, RESULTS_DIR)
+
             await client.send_command("/clear")
 
         data = {
@@ -197,6 +232,8 @@ async def cmd_run(args: argparse.Namespace) -> None:
             "context_length": context_length,
             "label": args.label,
             "runs_per_case": args.runs,
+            "temperature": temperature,
+            "build_fingerprint": client.last_fingerprint,
             "suites": suite_results,
         }
 
@@ -215,6 +252,11 @@ async def cmd_run(args: argparse.Namespace) -> None:
             prev_path = find_previous_result(model, RESULTS_DIR, exclude=result_path)
             if prev_path:
                 prev_data = load_results(prev_path)
+                for key in ("build_fingerprint", "temperature", "runs_per_case"):
+                    cur_v, prev_v = data.get(key), prev_data.get(key)
+                    if prev_v is not None and cur_v is not None and cur_v != prev_v:
+                        print(f"WARNING: comparing across different {key}: "
+                              f"{cur_v} vs {prev_v}", file=sys.stderr)
                 deltas = compute_deltas(data, prev_data)
                 current_label = args.label or "current"
                 previous_label = prev_data.get("label") or prev_path.stem
