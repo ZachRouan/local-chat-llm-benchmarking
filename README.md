@@ -191,7 +191,7 @@ examples/                 a complete real result file
 python -m pytest tests/ -q
 ```
 
-95 tests covering bench-record parsing, result storage and comparison, report rendering, suite registration, CLI behavior, and the case setup/verify functions (setups produce the intended fixtures; verifiers reject missing or wrong output). No model or server needed.
+83 tests covering bench-record parsing, result storage and comparison, report rendering, suite registration, CLI behavior, and the case setup/verify functions (setups produce the intended fixtures; verifiers reject missing or wrong output). No model or server needed.
 
 ## License
 
