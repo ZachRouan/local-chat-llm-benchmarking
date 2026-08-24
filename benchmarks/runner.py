@@ -14,7 +14,7 @@ import os
 import re
 import time
 from dataclasses import dataclass, field
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 
 class AppClientError(Exception):
@@ -136,13 +136,27 @@ class AppClient:
 
             # Extract model name from banner
             if "Model" in chunk:
-                m = re.search(r"Model\s+(\S+)", chunk)
-                if m:
-                    self.model = m.group(1).strip()
+                name = self._model_from_banner(chunk)
+                if name:
+                    self.model = name
 
             # Ready for input
             if self._PROMPT_RE.search(chunk):
                 break
+
+    @staticmethod
+    def _model_from_banner(chunk: str) -> str | None:
+        """Extract the model name from the startup banner.
+
+        The app prints whatever llama-server reports, which is the full
+        GGUF path when the server was started with ``-m /path/to/model.gguf``.
+        Keep only the final path component so result filenames and
+        ``--compare`` matching don't depend on where the model lives on disk.
+        """
+        m = re.search(r"Model\s+(\S+)", chunk)
+        if not m:
+            return None
+        return PurePosixPath(m.group(1).strip()).name or None
 
     async def send_prompt(self, text: str) -> PromptResult:
         """Send a prompt and collect the full response with metrics."""

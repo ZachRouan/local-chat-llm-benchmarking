@@ -75,3 +75,37 @@ def test_print_delta_report():
     output = _capture(print_delta_report, deltas, current_label="current", previous_label="previous")
     assert "25.0" in output
     assert "+25.0%" in output
+
+
+def test_print_summary_agent_single_run_shows_per_case_table():
+    data = {
+        "model": "test-model",
+        "server": "localhost:8082",
+        "label": None,
+        "runs_per_case": 1,
+        "suites": {
+            "e2e_project": {
+                "metrics": {"reliable_pass_rate": 0.5, "any_pass_rate": 0.5},
+                "cases": [
+                    {
+                        "name": "CLI tool",
+                        "metrics": {"pass_rate": 1.0, "avg_iterations": 12.0, "avg_tool_calls": 11.0},
+                        "runs": [{"passed": True}],
+                    },
+                    {
+                        "name": "Chat room server",
+                        "metrics": {"pass_rate": 0.0, "avg_iterations": 15.0, "avg_tool_calls": 16.0},
+                        "runs": [{"passed": False}],
+                    },
+                ],
+            },
+        },
+    }
+    buf = StringIO()
+    print_summary(data, console=Console(file=buf, width=120, no_color=True, highlight=False))
+    output = buf.getvalue()
+    assert "CLI tool" in output
+    assert "Chat room server" in output
+    assert "1/1" in output and "0/1" in output
+    assert "Reliable (all pass): 1/2" in output
+    assert "runs per case" not in output

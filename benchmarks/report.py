@@ -75,15 +75,17 @@ def print_summary(data: dict, console: Console | None = None) -> None:
         # from the recorded runs rather than a global setting.
         max_runs = max((len(c.get("runs", [])) for c in cases), default=1)
 
-        if has_pass_rates and max_runs > 1:
-            header = f"{suite_name} ({max_runs} runs per case)"
+        if has_pass_rates:
+            header = suite_name
+            if max_runs > 1:
+                header += f" ({max_runs} runs per case)"
             console.print(f"[bold]{header}[/bold]")
             table = Table(show_header=True, box=None, padding=(0, 2))
             table.add_column("Case")
             table.add_column("Pass Rate", justify="right")
             table.add_column("Runs")
-            table.add_column("Avg Iters", justify="right")
-            table.add_column("Avg Tools", justify="right")
+            table.add_column("Iters" if max_runs == 1 else "Avg Iters", justify="right")
+            table.add_column("Tools" if max_runs == 1 else "Avg Tools", justify="right")
 
             for case in cases:
                 cm = case.get("metrics", {})

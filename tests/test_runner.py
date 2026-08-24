@@ -75,3 +75,15 @@ def test_parse_response_fails_closed_without_bench_records():
     client = AppClient(server="localhost:8082")
     with pytest.raises(AppClientError):
         client._parse_response(["plain text only\n"], started_at=0.0, first_output_at=0.1)
+
+
+def test_model_from_banner_strips_directory():
+    assert AppClient._model_from_banner("Model /mnt/models/Qwen-27B-Q4.gguf") == "Qwen-27B-Q4.gguf"
+
+
+def test_model_from_banner_bare_name():
+    assert AppClient._model_from_banner("Model gemma-4-26B-Q8_0.gguf · Context 81,920 tokens") == "gemma-4-26B-Q8_0.gguf"
+
+
+def test_model_from_banner_missing():
+    assert AppClient._model_from_banner("Context 4096 tokens") is None

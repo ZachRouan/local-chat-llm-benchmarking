@@ -1,0 +1,4043 @@
+{
+  "timestamp": "2026-08-20T19:29:42.122494Z",
+  "model": "Qwen3.8-27B-UD-IQ4_XS.gguf",
+  "server": "localhost:8081",
+  "context_length": 81920,
+  "label": "baseline-qwen3.8-UD-IQ4_XS-b10450-tuned",
+  "runs_per_case": null,
+  "temperature": 1.0,
+  "build_fingerprint": "b10450-ece963f41",
+  "suites": {
+    "speed": {
+      "metrics": {
+        "avg_tok_s": 45.0,
+        "avg_ttft_ms": 676.1
+      },
+      "cases": [
+        {
+          "name": "Capital of France",
+          "prompt": "What is the capital of France?",
+          "metrics": {
+            "tok_s": 48.6,
+            "ttft_ms": 755.8,
+            "total_tokens": 33.0,
+            "duration_s": 1.4
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 755.8,
+                "first_content_ms": 1286.8,
+                "total_tokens": 33,
+                "duration_s": 1.4,
+                "prompt_ms": 750.4,
+                "tok_s": 48.6,
+                "prefill_tok_s": 37.3,
+                "timings_source": "server",
+                "context_used": 48,
+                "hit_max_tokens": false,
+                "reasoning_chars": 98
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Hash table",
+          "prompt": "Explain what a hash table is in two sentences.",
+          "metrics": {
+            "tok_s": 42.0,
+            "ttft_ms": 594.5,
+            "total_tokens": 136.0,
+            "duration_s": 3.6
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 594.5,
+                "first_content_ms": 1778.0,
+                "total_tokens": 136,
+                "duration_s": 3.6,
+                "prompt_ms": 355.5,
+                "tok_s": 42.0,
+                "prefill_tok_s": 59.1,
+                "timings_source": "server",
+                "context_used": 154,
+                "hit_max_tokens": false,
+                "reasoning_chars": 242
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Photosynthesis",
+          "prompt": "What is photosynthesis? Answer in one paragraph.",
+          "metrics": {
+            "tok_s": 47.6,
+            "ttft_ms": 721.3,
+            "total_tokens": 262.0,
+            "duration_s": 5.8
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 721.3,
+                "first_content_ms": 2506.4,
+                "total_tokens": 262,
+                "duration_s": 5.8,
+                "prompt_ms": 340.1,
+                "tok_s": 47.6,
+                "prefill_tok_s": 58.8,
+                "timings_source": "server",
+                "context_used": 276,
+                "hit_max_tokens": false,
+                "reasoning_chars": 360
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Largest planet",
+          "prompt": "What is the largest planet in our solar system and why?",
+          "metrics": {
+            "tok_s": 39.3,
+            "ttft_ms": 665.4,
+            "total_tokens": 417.0,
+            "duration_s": 11.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 665.4,
+                "first_content_ms": 3386.7,
+                "total_tokens": 417,
+                "duration_s": 11.0,
+                "prompt_ms": 343.9,
+                "tok_s": 39.3,
+                "prefill_tok_s": 64.0,
+                "timings_source": "server",
+                "context_used": 436,
+                "hit_max_tokens": false,
+                "reasoning_chars": 537
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "HTTP status 404",
+          "prompt": "What does HTTP status code 404 mean?",
+          "metrics": {
+            "tok_s": 44.8,
+            "ttft_ms": 673.0,
+            "total_tokens": 186.0,
+            "duration_s": 4.5
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 673.0,
+                "first_content_ms": 1641.3,
+                "total_tokens": 186,
+                "duration_s": 4.5,
+                "prompt_ms": 352.5,
+                "tok_s": 44.8,
+                "prefill_tok_s": 59.6,
+                "timings_source": "server",
+                "context_used": 205,
+                "hit_max_tokens": false,
+                "reasoning_chars": 207
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Binary search",
+          "prompt": "Explain binary search in three sentences.",
+          "metrics": {
+            "tok_s": 43.4,
+            "ttft_ms": 655.3,
+            "total_tokens": 132.0,
+            "duration_s": 3.4
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 655.3,
+                "first_content_ms": 1548.3,
+                "total_tokens": 132,
+                "duration_s": 3.4,
+                "prompt_ms": 338.0,
+                "tok_s": 43.4,
+                "prefill_tok_s": 53.2,
+                "timings_source": "server",
+                "context_used": 147,
+                "hit_max_tokens": false,
+                "reasoning_chars": 197
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Water boiling point",
+          "prompt": "At what temperature does water boil at sea level, in Celsius and Fahrenheit?",
+          "metrics": {
+            "tok_s": 49.6,
+            "ttft_ms": 667.6,
+            "total_tokens": 176.0,
+            "duration_s": 3.9
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 667.6,
+                "first_content_ms": 1855.8,
+                "total_tokens": 176,
+                "duration_s": 3.9,
+                "prompt_ms": 351.3,
+                "tok_s": 49.6,
+                "prefill_tok_s": 71.2,
+                "timings_source": "server",
+                "context_used": 199,
+                "hit_max_tokens": false,
+                "reasoning_chars": 238
+              },
+              "details": {}
+            }
+          ]
+        }
+      ]
+    },
+    "generation": {
+      "metrics": {
+        "avg_tok_s": 34.8,
+        "avg_duration_s": 121.1
+      },
+      "cases": [
+        {
+          "name": "History of computing",
+          "prompt": "Write a detailed essay about the history of computing, from early mechanical calculators to modern processors. Cover at least 5 major milestones.",
+          "metrics": {
+            "tok_s": 34.6,
+            "ttft_ms": 686.5,
+            "total_tokens": 3759.0,
+            "duration_s": 109.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 686.5,
+                "first_content_ms": 6581.3,
+                "total_tokens": 3759,
+                "duration_s": 109.0,
+                "prompt_ms": 370.5,
+                "tok_s": 34.6,
+                "prefill_tok_s": 99.9,
+                "timings_source": "server",
+                "context_used": 3794,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1035
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Explain machine learning",
+          "prompt": "Write a comprehensive explanation of how machine learning works, covering supervised learning, unsupervised learning, and neural networks. Include examples for each.",
+          "metrics": {
+            "tok_s": 37.4,
+            "ttft_ms": 721.7,
+            "total_tokens": 3496.0,
+            "duration_s": 93.9
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 721.7,
+                "first_content_ms": 4188.0,
+                "total_tokens": 3496,
+                "duration_s": 93.9,
+                "prompt_ms": 365.5,
+                "tok_s": 37.4,
+                "prefill_tok_s": 104.0,
+                "timings_source": "server",
+                "context_used": 3528,
+                "hit_max_tokens": false,
+                "reasoning_chars": 758
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Space exploration",
+          "prompt": "Write a detailed overview of humanity's space exploration achievements, from Sputnik to the James Webb Space Telescope. Discuss the significance of each milestone.",
+          "metrics": {
+            "tok_s": 32.5,
+            "ttft_ms": 717.9,
+            "total_tokens": 5205.0,
+            "duration_s": 160.4
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 717.9,
+                "first_content_ms": 8745.5,
+                "total_tokens": 5205,
+                "duration_s": 160.4,
+                "prompt_ms": 359.6,
+                "tok_s": 32.5,
+                "prefill_tok_s": 102.9,
+                "timings_source": "server",
+                "context_used": 5240,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1057
+              },
+              "details": {}
+            }
+          ]
+        }
+      ]
+    },
+    "code": {
+      "metrics": {
+        "avg_tok_s": 55.6,
+        "parse_rate": 1.0
+      },
+      "cases": [
+        {
+          "name": "Fibonacci",
+          "prompt": "Write a Python function called `fibonacci(n)` that returns the nth Fibonacci number. Only output the function, no explanation.",
+          "metrics": {
+            "tok_s": 55.63333333333333,
+            "ttft_ms": 593.2666666666667,
+            "total_tokens": 209.66666666666666,
+            "duration_s": 4.0,
+            "syntax_valid_rate": 1.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 800.3,
+                "first_content_ms": 5230.8,
+                "total_tokens": 322,
+                "duration_s": 6.0,
+                "prompt_ms": 401.4,
+                "tok_s": 57.7,
+                "prefill_tok_s": 87.2,
+                "timings_source": "server",
+                "context_used": 355,
+                "hit_max_tokens": false,
+                "reasoning_chars": 772,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def fibonacci(n):\n    if n <= 0:\n        return 0\n    if n == 1:\n        return 1\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 540.1,
+                "first_content_ms": 2144.0,
+                "total_tokens": 154,
+                "duration_s": 2.9,
+                "prompt_ms": 202.9,
+                "tok_s": 56.1,
+                "prefill_tok_s": 19.7,
+                "timings_source": "server",
+                "context_used": 187,
+                "hit_max_tokens": false,
+                "reasoning_chars": 317,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def fibonacci(n):\n    if n <= 0:\n        return 0\n    if n == 1:\n        return 1\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 439.4,
+                "first_content_ms": 2331.6,
+                "total_tokens": 153,
+                "duration_s": 3.1,
+                "prompt_ms": 187.0,
+                "tok_s": 53.1,
+                "prefill_tok_s": 21.4,
+                "timings_source": "server",
+                "context_used": 186,
+                "hit_max_tokens": false,
+                "reasoning_chars": 380,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def fibonacci(n):\n    if n < 0:\n        raise ValueError(\"n must be non-negative\")\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Palindrome check",
+          "prompt": "Write a Python function called `is_palindrome(s)` that returns True if the string is a palindrome, False otherwise. Only output the function, no explanation.",
+          "metrics": {
+            "tok_s": 55.5,
+            "ttft_ms": 547.1333333333333,
+            "total_tokens": 137.0,
+            "duration_s": 2.733333333333333,
+            "syntax_valid_rate": 1.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 624.1,
+                "first_content_ms": 2606.7,
+                "total_tokens": 122,
+                "duration_s": 2.7,
+                "prompt_ms": 368.4,
+                "tok_s": 53.3,
+                "prefill_tok_s": 114.0,
+                "timings_source": "server",
+                "context_used": 162,
+                "hit_max_tokens": false,
+                "reasoning_chars": 441,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def is_palindrome(s):\n    return s == s[::-1]"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 532.9,
+                "first_content_ms": 2744.4,
+                "total_tokens": 140,
+                "duration_s": 2.7,
+                "prompt_ms": 200.4,
+                "tok_s": 55.7,
+                "prefill_tok_s": 20.0,
+                "timings_source": "server",
+                "context_used": 180,
+                "hit_max_tokens": false,
+                "reasoning_chars": 507,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def is_palindrome(s):\n    return s == s[::-1]"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 484.4,
+                "first_content_ms": 2770.1,
+                "total_tokens": 149,
+                "duration_s": 2.8,
+                "prompt_ms": 191.0,
+                "tok_s": 57.5,
+                "prefill_tok_s": 20.9,
+                "timings_source": "server",
+                "context_used": 189,
+                "hit_max_tokens": false,
+                "reasoning_chars": 531,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def is_palindrome(s):\n    return s == s[::-1]"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Longest common prefix",
+          "prompt": "Write a Python function called `longest_common_prefix(strs)` that takes a list of strings and returns their longest common prefix. Only output the function, no explanation.",
+          "metrics": {
+            "tok_s": 51.03333333333333,
+            "ttft_ms": 563.9333333333333,
+            "total_tokens": 572.0,
+            "duration_s": 11.666666666666666,
+            "syntax_valid_rate": 1.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 626.6,
+                "first_content_ms": 19523.4,
+                "total_tokens": 954,
+                "duration_s": 20.2,
+                "prompt_ms": 372.7,
+                "tok_s": 48.1,
+                "prefill_tok_s": 118.1,
+                "timings_source": "server",
+                "context_used": 996,
+                "hit_max_tokens": false,
+                "reasoning_chars": 3436,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def longest_common_prefix(strs):\n    if not strs:\n        return \"\"\n    prefix = strs[0]\n    for s in strs[1:]:\n        while not s.startswith(prefix):\n            prefix = prefix[:-1]\n    return prefix"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 582.5,
+                "first_content_ms": 6560.3,
+                "total_tokens": 357,
+                "duration_s": 7.2,
+                "prompt_ms": 200.4,
+                "tok_s": 50.7,
+                "prefill_tok_s": 20.0,
+                "timings_source": "server",
+                "context_used": 399,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1183,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def longest_common_prefix(strs):\n    if not strs:\n        return \"\"\n    prefix = strs[0]\n    for s in strs[1:]:\n        while s[:len(prefix)] != prefix:\n            prefix = prefix[:-1]\n            if not prefix:\n                return \"\"\n    return prefix"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 482.7,
+                "first_content_ms": 6714.7,
+                "total_tokens": 405,
+                "duration_s": 7.6,
+                "prompt_ms": 188.3,
+                "tok_s": 54.3,
+                "prefill_tok_s": 21.2,
+                "timings_source": "server",
+                "context_used": 447,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1262,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def longest_common_prefix(strs):\n    if not strs:\n        return \"\"\n    for i in range(len(strs[0])):\n        for s in strs[1:]:\n            if i >= len(s) or s[i] != strs[0][i]:\n                return strs[0][:i]\n    return strs[0]"
+              }
+            }
+          ]
+        },
+        {
+          "name": "FizzBuzz",
+          "prompt": "Write a Python function called `fizzbuzz(n)` that returns a list of strings for numbers 1 to n, where multiples of 3 are 'Fizz', multiples of 5 are 'Buzz', multiples of both are 'FizzBuzz', and others are the number as a string. Only output the function, no explanation.",
+          "metrics": {
+            "tok_s": 59.46666666666667,
+            "ttft_ms": 586.9666666666667,
+            "total_tokens": 304.0,
+            "duration_s": 5.366666666666667,
+            "syntax_valid_rate": 1.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 703.1,
+                "first_content_ms": 4207.7,
+                "total_tokens": 291,
+                "duration_s": 5.4,
+                "prompt_ms": 410.9,
+                "tok_s": 57.8,
+                "prefill_tok_s": 185.0,
+                "timings_source": "server",
+                "context_used": 365,
+                "hit_max_tokens": false,
+                "reasoning_chars": 650,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def fizzbuzz(n):\n    result = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            result.append(\"FizzBuzz\")\n        elif i % 3 == 0:\n            result.append(\"Fizz\")\n        elif i % 5 == 0:\n            result.append(\"Buzz\")\n        else:\n            result.append(str(i))\n    return result"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 574.7,
+                "first_content_ms": 4624.9,
+                "total_tokens": 333,
+                "duration_s": 5.8,
+                "prompt_ms": 200.9,
+                "tok_s": 59.7,
+                "prefill_tok_s": 19.9,
+                "timings_source": "server",
+                "context_used": 407,
+                "hit_max_tokens": false,
+                "reasoning_chars": 758,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def fizzbuzz(n):\n    result = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            result.append(\"FizzBuzz\")\n        elif i % 3 == 0:\n            result.append(\"Fizz\")\n        elif i % 5 == 0:\n            result.append(\"Buzz\")\n        else:\n            result.append(str(i))\n    return result"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 483.1,
+                "first_content_ms": 3684.8,
+                "total_tokens": 288,
+                "duration_s": 4.9,
+                "prompt_ms": 189.4,
+                "tok_s": 60.9,
+                "prefill_tok_s": 21.1,
+                "timings_source": "server",
+                "context_used": 362,
+                "hit_max_tokens": false,
+                "reasoning_chars": 652,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def fizzbuzz(n):\n    result = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            result.append(\"FizzBuzz\")\n        elif i % 3 == 0:\n            result.append(\"Fizz\")\n        elif i % 5 == 0:\n            result.append(\"Buzz\")\n        else:\n            result.append(str(i))\n    return result"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Flatten nested list",
+          "prompt": "Write a Python function called `flatten(lst)` that takes an arbitrarily nested list and returns a flat list of all elements. Only output the function, no explanation.",
+          "metrics": {
+            "tok_s": 56.13333333333333,
+            "ttft_ms": 563.4,
+            "total_tokens": 221.66666666666666,
+            "duration_s": 4.2,
+            "syntax_valid_rate": 1.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 624.1,
+                "first_content_ms": 5182.7,
+                "total_tokens": 294,
+                "duration_s": 5.7,
+                "prompt_ms": 367.0,
+                "tok_s": 55.3,
+                "prefill_tok_s": 114.5,
+                "timings_source": "server",
+                "context_used": 334,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1000,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def flatten(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 580.8,
+                "first_content_ms": 3324.7,
+                "total_tokens": 199,
+                "duration_s": 3.7,
+                "prompt_ms": 201.7,
+                "tok_s": 56.7,
+                "prefill_tok_s": 19.8,
+                "timings_source": "server",
+                "context_used": 239,
+                "hit_max_tokens": false,
+                "reasoning_chars": 651,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def flatten(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 485.3,
+                "first_content_ms": 2695.6,
+                "total_tokens": 172,
+                "duration_s": 3.2,
+                "prompt_ms": 187.4,
+                "tok_s": 56.4,
+                "prefill_tok_s": 21.3,
+                "timings_source": "server",
+                "context_used": 212,
+                "hit_max_tokens": false,
+                "reasoning_chars": 535,
+                "syntax_valid": true
+              },
+              "details": {
+                "extracted_code": "def flatten(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "context": {
+      "metrics": {
+        "10% fill_tok_s": 42.5,
+        "25% fill_tok_s": 40.8,
+        "50% fill_tok_s": 38.1,
+        "75% fill_tok_s": 35.8,
+        "90% fill_tok_s": 31.8
+      },
+      "cases": [
+        {
+          "name": "10% fill",
+          "prompt": "[10% fill context filler + question]",
+          "metrics": {
+            "tok_s": 42.5,
+            "ttft_ms": 7264.7,
+            "total_tokens": 144.0,
+            "duration_s": 10.3
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 7264.7,
+                "first_content_ms": 9396.5,
+                "total_tokens": 144,
+                "duration_s": 10.3,
+                "prompt_ms": 6949.1,
+                "tok_s": 42.5,
+                "prefill_tok_s": 834.9,
+                "timings_source": "server",
+                "context_used": 5944,
+                "hit_max_tokens": false,
+                "reasoning_chars": 443
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "25% fill",
+          "prompt": "[25% fill context filler + question]",
+          "metrics": {
+            "tok_s": 40.8,
+            "ttft_ms": 17849.0,
+            "total_tokens": 200.0,
+            "duration_s": 22.2
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 17849.0,
+                "first_content_ms": 21428.5,
+                "total_tokens": 200,
+                "duration_s": 22.2,
+                "prompt_ms": 17265.9,
+                "tok_s": 40.8,
+                "prefill_tok_s": 837.3,
+                "timings_source": "server",
+                "context_used": 14654,
+                "hit_max_tokens": false,
+                "reasoning_chars": 628
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "50% fill",
+          "prompt": "[50% fill context filler + question]",
+          "metrics": {
+            "tok_s": 38.1,
+            "ttft_ms": 38040.7,
+            "total_tokens": 175.0,
+            "duration_s": 41.8
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 38040.7,
+                "first_content_ms": 41283.4,
+                "total_tokens": 175,
+                "duration_s": 41.8,
+                "prompt_ms": 37251.9,
+                "tok_s": 38.1,
+                "prefill_tok_s": 775.2,
+                "timings_source": "server",
+                "context_used": 29051,
+                "hit_max_tokens": false,
+                "reasoning_chars": 605
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "75% fill",
+          "prompt": "[75% fill context filler + question]",
+          "metrics": {
+            "tok_s": 35.8,
+            "ttft_ms": 61649.8,
+            "total_tokens": 198.0,
+            "duration_s": 66.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 61649.8,
+                "first_content_ms": 65821.7,
+                "total_tokens": 198,
+                "duration_s": 66.0,
+                "prompt_ms": 60515.2,
+                "tok_s": 35.8,
+                "prefill_tok_s": 715.6,
+                "timings_source": "server",
+                "context_used": 43499,
+                "hit_max_tokens": false,
+                "reasoning_chars": 727
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "90% fill",
+          "prompt": "[90% fill context filler + question]",
+          "metrics": {
+            "tok_s": 31.8,
+            "ttft_ms": 76241.7,
+            "total_tokens": 162.0,
+            "duration_s": 80.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 76241.7,
+                "first_content_ms": 79308.5,
+                "total_tokens": 162,
+                "duration_s": 80.0,
+                "prompt_ms": 74881.6,
+                "tok_s": 31.8,
+                "prefill_tok_s": 686.2,
+                "timings_source": "server",
+                "context_used": 51545,
+                "hit_max_tokens": false,
+                "reasoning_chars": 487
+              },
+              "details": {}
+            }
+          ]
+        }
+      ]
+    },
+    "multiturn": {
+      "metrics": {
+        "Turn 1_tok_s": 34.5,
+        "Turn 2_tok_s": 31.8,
+        "Turn 3_tok_s": 36.0,
+        "Turn 4_tok_s": 33.3,
+        "Turn 5_tok_s": 33.0,
+        "Turn 6_tok_s": 36.8,
+        "Turn 7_tok_s": 41.8,
+        "Turn 8_tok_s": 29.8
+      },
+      "cases": [
+        {
+          "name": "Turn 1",
+          "prompt": "I'm planning a trip to Japan. What are the top 3 cities to visit?",
+          "metrics": {
+            "tok_s": 34.5,
+            "ttft_ms": 1756.3,
+            "total_tokens": 707.0,
+            "duration_s": 20.9,
+            "context_used": 733.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1756.3,
+                "first_content_ms": 10759.0,
+                "total_tokens": 707,
+                "duration_s": 20.9,
+                "prompt_ms": 404.1,
+                "tok_s": 34.5,
+                "prefill_tok_s": 69.3,
+                "timings_source": "server",
+                "context_used": 733,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1160
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Turn 2",
+          "prompt": "Tell me more about the second city you mentioned. What should I see there?",
+          "metrics": {
+            "tok_s": 31.8,
+            "ttft_ms": 1404.7,
+            "total_tokens": 750.0,
+            "duration_s": 24.6,
+            "context_used": 1212.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1404.7,
+                "first_content_ms": 2454.0,
+                "total_tokens": 750,
+                "duration_s": 24.6,
+                "prompt_ms": 1008.6,
+                "tok_s": 31.8,
+                "prefill_tok_s": 444.2,
+                "timings_source": "server",
+                "context_used": 1212,
+                "hit_max_tokens": false,
+                "reasoning_chars": 198
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Turn 3",
+          "prompt": "What's the best time of year to visit that city?",
+          "metrics": {
+            "tok_s": 36.0,
+            "ttft_ms": 1897.3,
+            "total_tokens": 1068.0,
+            "duration_s": 31.0,
+            "context_used": 2246.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1897.3,
+                "first_content_ms": 13904.9,
+                "total_tokens": 1068,
+                "duration_s": 31.0,
+                "prompt_ms": 1391.2,
+                "tok_s": 36.0,
+                "prefill_tok_s": 527.6,
+                "timings_source": "server",
+                "context_used": 2246,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1724
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Turn 4",
+          "prompt": "How should I get around? Is public transit good there?",
+          "metrics": {
+            "tok_s": 33.3,
+            "ttft_ms": 1376.0,
+            "total_tokens": 1396.0,
+            "duration_s": 43.3,
+            "context_used": 3255.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1376.0,
+                "first_content_ms": 15967.3,
+                "total_tokens": 1396,
+                "duration_s": 43.3,
+                "prompt_ms": 1364.7,
+                "tok_s": 33.3,
+                "prefill_tok_s": 503.4,
+                "timings_source": "server",
+                "context_used": 3255,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1779
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Turn 5",
+          "prompt": "What local foods should I try?",
+          "metrics": {
+            "tok_s": 33.0,
+            "ttft_ms": 1815.8,
+            "total_tokens": 2354.0,
+            "duration_s": 73.2,
+            "context_used": 5166.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1815.8,
+                "first_content_ms": 27129.6,
+                "total_tokens": 2354,
+                "duration_s": 73.2,
+                "prompt_ms": 1800.2,
+                "tok_s": 33.0,
+                "prefill_tok_s": 536.1,
+                "timings_source": "server",
+                "context_used": 5166,
+                "hit_max_tokens": false,
+                "reasoning_chars": 3058
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Turn 6",
+          "prompt": "Can you suggest a 3-day itinerary for that city?",
+          "metrics": {
+            "tok_s": 36.8,
+            "ttft_ms": 2419.2,
+            "total_tokens": 3650.0,
+            "duration_s": 101.5,
+            "context_used": 8021.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 2419.2,
+                "first_content_ms": 25977.1,
+                "total_tokens": 3650,
+                "duration_s": 101.5,
+                "prompt_ms": 2398.0,
+                "tok_s": 36.8,
+                "prefill_tok_s": 655.1,
+                "timings_source": "server",
+                "context_used": 8021,
+                "hit_max_tokens": false,
+                "reasoning_chars": 3078
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Turn 7",
+          "prompt": "What about budget? How much should I expect to spend per day?",
+          "metrics": {
+            "tok_s": 41.8,
+            "ttft_ms": 3834.1,
+            "total_tokens": 3231.0,
+            "duration_s": 81.1,
+            "context_used": 10364.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 3834.1,
+                "first_content_ms": 22950.3,
+                "total_tokens": 3231,
+                "duration_s": 81.1,
+                "prompt_ms": 3810.4,
+                "tok_s": 41.8,
+                "prefill_tok_s": 728.0,
+                "timings_source": "server",
+                "context_used": 10364,
+                "hit_max_tokens": false,
+                "reasoning_chars": 2199
+              },
+              "details": {}
+            }
+          ]
+        },
+        {
+          "name": "Turn 8",
+          "prompt": "Any cultural etiquette I should know about?",
+          "metrics": {
+            "tok_s": 29.8,
+            "ttft_ms": 3605.7,
+            "total_tokens": 2458.0,
+            "duration_s": 85.9,
+            "context_used": 12079.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 3605.7,
+                "first_content_ms": 10875.5,
+                "total_tokens": 2458,
+                "duration_s": 85.9,
+                "prompt_ms": 3575.3,
+                "tok_s": 29.8,
+                "prefill_tok_s": 699.2,
+                "timings_source": "server",
+                "context_used": 12079,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1068
+              },
+              "details": {}
+            }
+          ]
+        }
+      ]
+    },
+    "agent": {
+      "metrics": {
+        "reliable_pass_rate": 0.89,
+        "any_pass_rate": 1.0,
+        "avg_iterations": 4.1,
+        "avg_tool_calls": 3.9
+      },
+      "cases": [
+        {
+          "name": "Read and answer",
+          "prompt": "Read the file `info.txt` and tell me what the author's name is.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 2.0,
+            "avg_tool_calls": 1.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 2147.5,
+                "total_tokens": 69,
+                "duration_s": 3.0,
+                "prompt_ms": 1795.8,
+                "tok_s": 58.7,
+                "prefill_tok_s": 151.8,
+                "timings_source": "server",
+                "context_used": 237,
+                "hit_max_tokens": false,
+                "reasoning_chars": 111,
+                "iterations": 2,
+                "tool_calls": 1,
+                "tool_errors": 0,
+                "self_verified": false
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "The author's name is **Alice Chen**."
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 214.4,
+                "total_tokens": 70,
+                "duration_s": 2.0,
+                "prompt_ms": 642.5,
+                "tok_s": 53.0,
+                "prefill_tok_s": 145.0,
+                "timings_source": "server",
+                "context_used": 231,
+                "hit_max_tokens": false,
+                "reasoning_chars": 112,
+                "iterations": 2,
+                "tool_calls": 1,
+                "tool_errors": 0,
+                "self_verified": false
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "The author's name is **Alice Chen**."
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 244.6,
+                "total_tokens": 87,
+                "duration_s": 2.4,
+                "prompt_ms": 655.1,
+                "tok_s": 49.9,
+                "prefill_tok_s": 150.6,
+                "timings_source": "server",
+                "context_used": 252,
+                "hit_max_tokens": false,
+                "reasoning_chars": 133,
+                "iterations": 2,
+                "tool_calls": 1,
+                "tool_errors": 0,
+                "self_verified": false
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "The author's name is **Alice Chen**, as listed in the `Author` field of `info.txt`."
+              }
+            }
+          ],
+          "level": 1
+        },
+        {
+          "name": "Create a file",
+          "prompt": "Create a file called `greeting.txt` that contains exactly the text 'Hello, World!'",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 3.0,
+            "avg_tool_calls": 2.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1155.8,
+                "total_tokens": 249,
+                "duration_s": 7.9,
+                "prompt_ms": 1992.9,
+                "tok_s": 42.1,
+                "prefill_tok_s": 127.3,
+                "timings_source": "server",
+                "context_used": 357,
+                "hit_max_tokens": false,
+                "reasoning_chars": 656,
+                "iterations": 3,
+                "tool_calls": 2,
+                "tool_errors": 0,
+                "self_verified": false
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "The file `greeting.txt` has been created and contains exactly the text `Hello, World!`."
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1151.9,
+                "total_tokens": 156,
+                "duration_s": 4.8,
+                "prompt_ms": 1986.8,
+                "tok_s": 55.0,
+                "prefill_tok_s": 131.4,
+                "timings_source": "server",
+                "context_used": 336,
+                "hit_max_tokens": false,
+                "reasoning_chars": 209,
+                "iterations": 3,
+                "tool_calls": 2,
+                "tool_errors": 0,
+                "self_verified": false
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "Done! Created `greeting.txt` containing exactly `Hello, World!` (verified by reading it back \u2014 no extra trailing newline)."
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1134.9,
+                "total_tokens": 150,
+                "duration_s": 5.0,
+                "prompt_ms": 1926.8,
+                "tok_s": 48.6,
+                "prefill_tok_s": 136.9,
+                "timings_source": "server",
+                "context_used": 333,
+                "hit_max_tokens": false,
+                "reasoning_chars": 222,
+                "iterations": 3,
+                "tool_calls": 2,
+                "tool_errors": 0,
+                "self_verified": false
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "The file `greeting.txt` has been created successfully and contains exactly the text `Hello, World!`."
+              }
+            }
+          ],
+          "level": 1
+        },
+        {
+          "name": "List and count",
+          "prompt": "How many Python files are in the `src/` directory?",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 3.0,
+            "avg_tool_calls": 2.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1114.3,
+                "total_tokens": 328,
+                "duration_s": 9.1,
+                "prompt_ms": 2408.9,
+                "tok_s": 49.4,
+                "prefill_tok_s": 279.8,
+                "timings_source": "server",
+                "context_used": 530,
+                "hit_max_tokens": false,
+                "reasoning_chars": 378,
+                "iterations": 4,
+                "tool_calls": 3,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "There are **5** Python files in the `src/` directory.\n\n\nThere are **5** Python files in the `src/` directory:\n\n- `src/a.py`\n- `src/b.py`\n- `src/c.py`\n- `src/d.py`\n- `src/e.py`\n\n\nThere are **5** Python files in the `src/` directory:\n\n- `src/a.py`\n- `src/b.py`\n- `src/c.py`\n- `src/d.py`\n- `src/e.py`"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1077.9,
+                "total_tokens": 152,
+                "duration_s": 4.4,
+                "prompt_ms": 1516.3,
+                "tok_s": 52.8,
+                "prefill_tok_s": 206.9,
+                "timings_source": "server",
+                "context_used": 311,
+                "hit_max_tokens": false,
+                "reasoning_chars": 142,
+                "iterations": 2,
+                "tool_calls": 1,
+                "tool_errors": 0,
+                "self_verified": false
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  }
+                ],
+                "response_text": "There are **5 Python files** in the `src/` directory:\n\n1. `a.py`\n2. `b.py`\n3. `c.py`\n4. `d.py`\n5. `e.py`\n\n(The remaining three files are text files: `data.txt`, `notes.txt`, and `readme.txt`.)"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 216.4,
+                "total_tokens": 172,
+                "duration_s": 4.1,
+                "prompt_ms": 1007.3,
+                "tok_s": 56.1,
+                "prefill_tok_s": 180.9,
+                "timings_source": "server",
+                "context_used": 358,
+                "hit_max_tokens": false,
+                "reasoning_chars": 171,
+                "iterations": 3,
+                "tool_calls": 2,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "There are **5** Python files in the `src/` directory:\n\n- `src/a.py`\n- `src/b.py`\n- `src/c.py`\n- `src/d.py`\n- `src/e.py`"
+              }
+            }
+          ],
+          "level": 2
+        },
+        {
+          "name": "Search and report",
+          "prompt": "Find all TODO comments in this project and list them with their file paths.",
+          "metrics": {
+            "pass_rate": 0.6666666666666666,
+            "avg_iterations": 3.0,
+            "avg_tool_calls": 3.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1082.8,
+                "total_tokens": 447,
+                "duration_s": 12.4,
+                "prompt_ms": 2363.0,
+                "tok_s": 44.6,
+                "prefill_tok_s": 261.3,
+                "timings_source": "server",
+                "context_used": 672,
+                "hit_max_tokens": false,
+                "reasoning_chars": 635,
+                "iterations": 4,
+                "tool_calls": 3,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "Let me verify by reading the files directly:\n\n\nHere are all the TODO comments found in the project:\n\n| File | Line | Comment |\n|------|------|---------|\n| `app.py` | 1 | `# TODO: add logging` |\n| `utils.py` | 1 | `# TODO: handle edge case` |\n| `config.py` | 1 | `todo_message = \"TODO items go here\"` |\n\n**Summary:**\n- **`app.py`** \u2014 a real TODO comment noting that logging needs to be added\n- **`utils.py`** \u2014 a TODO comment about handling an edge case\n- **`config.py`** \u2014 contains the word \"TODO\" inside a string variable, not an actual TODO comment (likely just placeholder content)\n\nNo other `FIXME` or `XXX` markers were found in the project."
+              }
+            },
+            {
+              "passed": false,
+              "metrics": {
+                "ttft_ms": 1096.7,
+                "total_tokens": 366,
+                "duration_s": 9.4,
+                "prompt_ms": 1614.3,
+                "tok_s": 47.3,
+                "prefill_tok_s": 278.7,
+                "timings_source": "server",
+                "context_used": 594,
+                "hit_max_tokens": false,
+                "reasoning_chars": 226,
+                "iterations": 2,
+                "tool_calls": 2,
+                "tool_errors": 0,
+                "self_verified": false
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  }
+                ],
+                "response_text": "I found TODO items in the project. Here's the list:\n\n## TODO Comments\n\n| # | File Path | Line | Content |\n|---|-----------|------|---------|\n| 1 | `app.py` | 1 | `# TODO: add logging` |\n| 2 | `utils.py` | 1 | `# TODO: handle edge case` |\n| 3 | `config.py` | 1 | `todo_message = \"TODO items go here\"` |\n\n### Summary\n\n**Standard TODO comments (2):**\n- **`app.py` (line 1):** `# TODO: add logging`\n- **`utils.py` (line 1):** `# TODO: handle edge case`\n\n**Note:** The third match in `config.py` is not a comment \u2014 it's a string variable named `todo_message` containing `\"TODO items go here\"`. I've included it since it matches the TODO pattern, but you may want to consider it separately.\n\nThe project is small (4 files: `app.py`, `utils.py`, `config.py`, `readme.md`), and these are all the TODO references found."
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 214.0,
+                "first_content_ms": 605.3,
+                "total_tokens": 500,
+                "duration_s": 11.6,
+                "prompt_ms": 1159.1,
+                "tok_s": 47.9,
+                "prefill_tok_s": 298.8,
+                "timings_source": "server",
+                "context_used": 773,
+                "hit_max_tokens": false,
+                "reasoning_chars": 629,
+                "iterations": 3,
+                "tool_calls": 4,
+                "tool_errors": 0,
+                "self_verified": false
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "Let me search for all TODO comments in the project.\n\n\nLet me check each of these files to provide more context.\n\n\nHere are all the TODO items found in the project:\n\n| # | File Path | Line | TODO Description |\n|---|-----------|------|------------------|\n| 1 | `app.py` | 1 | `# TODO: add logging` |\n| 2 | `utils.py` | 1 | `# TODO: handle edge case` |\n| 3 | `config.py` | 1 | `todo_message = \"TODO items go here\"` |\n\n**Summary:**\n- **`app.py`** \u2014 The `main()` function is a stub that needs logging added.\n- **`utils.py`** \u2014 The `helper()` function is a stub that needs an edge case handled.\n- **`config.py`** \u2014 Contains a `todo_message` variable with the string `\"TODO items go here\"`. This is a data string rather than a code comment, but it was picked up by the TODO search."
+              }
+            }
+          ],
+          "level": 2
+        },
+        {
+          "name": "Read, modify, write",
+          "prompt": "The file `config.json` has the port set to 3000. Change it to 8080.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 3.0,
+            "avg_tool_calls": 2.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1174.5,
+                "total_tokens": 212,
+                "duration_s": 6.0,
+                "prompt_ms": 2066.6,
+                "tok_s": 54.5,
+                "prefill_tok_s": 256.4,
+                "timings_source": "server",
+                "context_used": 436,
+                "hit_max_tokens": false,
+                "reasoning_chars": 115,
+                "iterations": 3,
+                "tool_calls": 2,
+                "tool_errors": 0,
+                "self_verified": false
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "I found the file. Now I'll change the port from 3000 to 8080.\n\n\nDone. The `config.json` file now has the port set to 8080:\n\n```json\n{\n  \"host\": \"localhost\",\n  \"port\": 8080,\n  \"debug\": true\n}\n```"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1156.5,
+                "total_tokens": 195,
+                "duration_s": 5.6,
+                "prompt_ms": 2010.0,
+                "tok_s": 54.3,
+                "prefill_tok_s": 218.4,
+                "timings_source": "server",
+                "context_used": 431,
+                "hit_max_tokens": false,
+                "reasoning_chars": 125,
+                "iterations": 3,
+                "tool_calls": 2,
+                "tool_errors": 0,
+                "self_verified": false
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "Done. I've updated `config.json` to change the port from 3000 to 8080. The file now reads:\n\n```json\n{\n  \"host\": \"localhost\",\n  \"port\": 8080,\n  \"debug\": true\n}\n```"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1165.5,
+                "total_tokens": 150,
+                "duration_s": 4.9,
+                "prompt_ms": 2014.8,
+                "tok_s": 51.5,
+                "prefill_tok_s": 219.8,
+                "timings_source": "server",
+                "context_used": 399,
+                "hit_max_tokens": false,
+                "reasoning_chars": 87,
+                "iterations": 3,
+                "tool_calls": 2,
+                "tool_errors": 0,
+                "self_verified": false
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "Done. The `port` in `config.json` has been changed from `3000` to `8080`."
+              }
+            }
+          ],
+          "level": 3
+        },
+        {
+          "name": "Multi-file creation",
+          "prompt": "Create a Python package called `mathutils` with an `__init__.py` that imports from `operations.py`. `operations.py` should have functions `add(a, b)` and `multiply(a, b)` that return their results.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 4.0,
+            "avg_tool_calls": 4.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1185.1,
+                "total_tokens": 373,
+                "duration_s": 8.9,
+                "prompt_ms": 2211.3,
+                "tok_s": 56.0,
+                "prefill_tok_s": 204.4,
+                "timings_source": "server",
+                "context_used": 669,
+                "hit_max_tokens": false,
+                "reasoning_chars": 111,
+                "iterations": 3,
+                "tool_calls": 3,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "Now let me verify the package works:\n\n\nDone. I created the `mathutils` package with:\n\n- **`mathutils/operations.py`** \u2014 contains `add(a, b)` returning `a + b` and `multiply(a, b)` returning `a * b`.\n- **`mathutils/__init__.py`** \u2014 imports both functions via a relative import (`from .operations import add, multiply`) and exposes them in `__all__`.\n\nVerified it works: `mathutils.add(2, 3)` returns `5` and `mathutils.multiply(4, 5)` returns `20`."
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1186.2,
+                "first_content_ms": 2425.3,
+                "total_tokens": 516,
+                "duration_s": 12.3,
+                "prompt_ms": 3011.4,
+                "tok_s": 55.3,
+                "prefill_tok_s": 189.3,
+                "timings_source": "server",
+                "context_used": 796,
+                "hit_max_tokens": false,
+                "reasoning_chars": 400,
+                "iterations": 5,
+                "tool_calls": 5,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "I'll create the `mathutils` package with the required files.\n\n\nNow let me verify the package works:\n\n\nThe `mathutils` package is created and working:\n\n- **`mathutils/operations.py`** \u2014 defines `add(a, b)` and `multiply(a, b)`, each returning their result.\n- **`mathutils/__init__.py`** \u2014 imports `add` and `multiply` from `operations`, exposing them at the package level.\n\nVerification: `mathutils.add(2, 3)` \u2192 `5` and `mathutils.multiply(4, 5)` \u2192 `20` \u2713"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1200.1,
+                "total_tokens": 571,
+                "duration_s": 13.7,
+                "prompt_ms": 2825.9,
+                "tok_s": 52.3,
+                "prefill_tok_s": 306.2,
+                "timings_source": "server",
+                "context_used": 955,
+                "hit_max_tokens": false,
+                "reasoning_chars": 131,
+                "iterations": 4,
+                "tool_calls": 4,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "Both files are created. Now let me verify the package works correctly:\n\n\nThe `mathutils` package is created and working. Here's what I built:\n\n**`mathutils/operations.py`**\n- `add(a, b)` \u2192 returns `a + b`\n- `multiply(a, b)` \u2192 returns `a * b`\n\n**`mathutils/__init__.py`**\n- Imports `add` and `multiply` from `.operations`\n- Exposes them via `__all__`\n\n**Verification:**\n```\nadd(2, 3) = 5\nmultiply(4, 5) = 20\n```\n\nThe package is fully functional \u2014 you can import the functions directly (`from mathutils import add, multiply`) or access them off the package (`mathutils.add(...)`)."
+              }
+            }
+          ],
+          "level": 3
+        },
+        {
+          "name": "Debug a broken script",
+          "prompt": "The script `app.py` has a bug. Fix it so it runs without errors.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 6.333333333333333,
+            "avg_tool_calls": 6.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1485.9,
+                "total_tokens": 352,
+                "duration_s": 10.2,
+                "prompt_ms": 2730.3,
+                "tok_s": 47.2,
+                "prefill_tok_s": 142.8,
+                "timings_source": "server",
+                "context_used": 778,
+                "hit_max_tokens": false,
+                "reasoning_chars": 303,
+                "iterations": 4,
+                "tool_calls": 4,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "The bug is clear: the code references an undefined variable `multiplier` instead of `factor`.\n\n\nFixed. The bug was an undefined variable `multiplier` in the loop \u2014 it should have been `factor` (defined at the top of the function). The script now runs without errors and outputs `Total: 66.0`."
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1145.0,
+                "total_tokens": 298,
+                "duration_s": 8.1,
+                "prompt_ms": 2654.3,
+                "tok_s": 54.4,
+                "prefill_tok_s": 133.8,
+                "timings_source": "server",
+                "context_used": 653,
+                "hit_max_tokens": false,
+                "reasoning_chars": 121,
+                "iterations": 4,
+                "tool_calls": 4,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "Fixed. The bug was in the `calculate` function: it referenced an undefined variable `multiplier` instead of the defined `factor`. I changed `item * multiplier` to `item * factor`. The script now runs without errors, outputting `Total: 66.0`."
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1151.2,
+                "total_tokens": 1137,
+                "duration_s": 32.9,
+                "prompt_ms": 7808.5,
+                "tok_s": 45.3,
+                "prefill_tok_s": 243.0,
+                "timings_source": "server",
+                "context_used": 2993,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1425,
+                "iterations": 11,
+                "tool_calls": 10,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "The bug is a reference to an undefined variable `multiplier` \u2014 it should be `factor`.\n\n\nThere are multiple `app.py` files. Let me find them all.\n\n\nThe relative path `app.py` resolves to the agent's working directory. Let me check where my fixed file landed.\n\n\nThe working directory is `debug-a-broken-script-run3`, and my fix is in the right place. Let me verify it runs.\n\n\nFixed. The bug was in `app.py`: the loop referenced an undefined variable `multiplier` instead of the defined `factor`.\n\n```python\ntotal += item * multiplier  # NameError\n```\n\nI changed it to:\n\n```python\ntotal += item * factor\n```\n\nThe script now runs cleanly, printing `Total: 66.0` (60 \u00d7 1.1)."
+              }
+            }
+          ],
+          "level": 3
+        },
+        {
+          "name": "Create project with tests",
+          "prompt": "Create a Python module `stringutils.py` with functions `reverse(s)`, `is_palindrome(s)`, and `word_count(s)`. Then create `test_stringutils.py` with pytest tests for each function. Run the tests and make sure they pass.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 5.333333333333333,
+            "avg_tool_calls": 5.333333333333333,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1652.4,
+                "total_tokens": 1284,
+                "duration_s": 29.5,
+                "prompt_ms": 4950.3,
+                "tok_s": 52.4,
+                "prefill_tok_s": 560.9,
+                "timings_source": "server",
+                "context_used": 2483,
+                "hit_max_tokens": false,
+                "reasoning_chars": 225,
+                "iterations": 6,
+                "tool_calls": 6,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "Both files are created. Now let me run the tests:\n\n\nAll 20 tests pass. Here's a summary of what was created:\n\n## `stringutils.py`\n- **`reverse(s)`** \u2014 returns the string reversed via slicing (`s[::-1]`).\n- **`is_palindrome(s)`** \u2014 case-insensitive check that ignores non-alphanumeric characters (so \"A man, a plan, a canal: Panama\" is a palindrome).\n- **`word_count(s)`** \u2014 counts whitespace-separated words using `str.split()` (handles extra whitespace, empty strings return 0).\n\nAll three functions validate input and raise `TypeError` for non-string inputs.\n\n## `test_stringutils.py`\n20 pytest tests organized into three classes:\n- **`TestReverse`** (6 tests): simple, empty, single char, spaces, special chars, type error\n- **`TestIsPalindrome`** (7 tests): simple, non-palindrome, empty, single char, case-insensitive, ignores punctuation, type error\n- **`TestWordCount`** (7 tests): simple, single word, empty, whitespace-only, extra whitespace, attached punctuation, type error\n\n**Result: 20 passed in 0.02s** \u2705"
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 659.9,
+                "first_content_ms": 1333.0,
+                "total_tokens": 1386,
+                "duration_s": 30.7,
+                "prompt_ms": 4017.9,
+                "tok_s": 52.0,
+                "prefill_tok_s": 572.2,
+                "timings_source": "server",
+                "context_used": 2790,
+                "hit_max_tokens": false,
+                "reasoning_chars": 304,
+                "iterations": 5,
+                "tool_calls": 5,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "I'll create the module and test file, then run the tests.\n\n\nBoth files are written. Now let me run the tests:\n\n\nLet me find where the files are and use the right Python interpreter:\n\n\nAll 23 tests pass. Here's what I created:\n\n## `stringutils.py`\nThree functions, each validating input is a `str`:\n- **`reverse(s)`** \u2014 returns the reversed string using slicing (`s[::-1]`)\n- **`is_palindrome(s)`** \u2014 case-insensitive, ignores non-alphanumeric characters (so `\"A man, a plan, a canal: Panama\"` is a palindrome)\n- **`word_count(s)`** \u2014 counts whitespace-separated words (extra whitespace doesn't affect the count)\n\n## `test_stringutils.py`\n23 pytest tests organized into three classes (`TestReverse`, `TestIsPalindrome`, `TestWordCount`), covering:\n- Empty and single-character strings\n- Typical cases and edge cases (punctuation, case sensitivity, extra whitespace, newlines/tabs)\n- `TypeError` for non-string input on all three functions\n\nResult: **23 passed** in 0.03s."
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 653.3,
+                "total_tokens": 1379,
+                "duration_s": 29.2,
+                "prompt_ms": 3746.8,
+                "tok_s": 54.3,
+                "prefill_tok_s": 570.6,
+                "timings_source": "server",
+                "context_used": 2666,
+                "hit_max_tokens": false,
+                "reasoning_chars": 181,
+                "iterations": 5,
+                "tool_calls": 5,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "Both files are written. Now let me run the tests:\n\n\nAll 22 tests passed. Here's a summary of what I created:\n\n**`stringutils.py`** \u2014 three functions, each with a docstring and type validation:\n\n| Function | Behavior |\n|----------|----------|\n| `reverse(s)` | Returns the string reversed via slicing (`s[::-1]`) |\n| `is_palindrome(s)` | Case-insensitive, ignores non-alphanumeric characters, so `\"A man, a plan, a canal: Panama\"` \u2192 `True` |\n| `word_count(s)` | Counts whitespace-separated words (handles extra spaces, tabs, newlines) |\n\nAll three raise `TypeError` if given a non-string.\n\n**`test_stringutils.py`** \u2014 22 pytest tests organized into three classes:\n\n- `TestReverse` (7 tests): simple strings, palindromes, empty, single char, spaces, unicode, type error\n- `TestIsPalindrome` (8 tests): basic, non-palindrome, case-insensitivity, punctuation stripping, edge cases, type error\n- `TestWordCount` (7 tests): basic counts, extra whitespace, empty, whitespace-only, tabs/newlines, type error\n\n**Result: `22 passed in 0.03s`** \u2705"
+              }
+            }
+          ],
+          "level": 4
+        },
+        {
+          "name": "Refactor across files",
+          "prompt": "The function `calculate_total` is duplicated in both `orders.py` and `invoices.py`. Extract it into a shared `utils.py` module, update both files to import from there, and verify nothing is broken.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 7.0,
+            "avg_tool_calls": 9.333333333333334,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1551.8,
+                "total_tokens": 763,
+                "duration_s": 17.9,
+                "prompt_ms": 3896.7,
+                "tok_s": 54.4,
+                "prefill_tok_s": 200.3,
+                "timings_source": "server",
+                "context_used": 1440,
+                "hit_max_tokens": false,
+                "reasoning_chars": 441,
+                "iterations": 6,
+                "tool_calls": 9,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "Both functions are identical. I'll create `utils.py` and update both files to import from it.\n\n\nNow let me verify both scripts run correctly:\n\n\nRefactoring complete. Summary of changes:\n\n- **Created `utils.py`** \u2014 contains the shared `calculate_total` function (extracted verbatim from the original duplicates).\n- **Updated `orders.py`** \u2014 removed the local `calculate_total` definition, added `from utils import calculate_total`.\n- **Updated `invoices.py`** \u2014 same change.\n\n**Verification:** Both scripts run correctly:\n- `orders.py` \u2192 `35` (10\u00d72 + 5\u00d73) \u2713\n- `invoices.py` \u2192 `200` (100\u00d71 + 50\u00d72) \u2713\n\nNothing is broken \u2014 each script produces the expected output via the shared module."
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1678.2,
+                "total_tokens": 1051,
+                "duration_s": 26.7,
+                "prompt_ms": 5298.4,
+                "tok_s": 49.0,
+                "prefill_tok_s": 229.0,
+                "timings_source": "server",
+                "context_used": 1869,
+                "hit_max_tokens": false,
+                "reasoning_chars": 991,
+                "iterations": 9,
+                "tool_calls": 11,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "I can see both files define an identical `calculate_total` function. Let me extract it into a shared `utils.py` and update both files.\n\n\nNow let me verify everything works by running both scripts:\n\n\nThe files are all in the working directory. Let me run them:\n\n\nEverything works. Here's a summary of the changes:\n\n## What was done\n\n**Created `utils.py`** \u2014 the single shared location for the function:\n```python\ndef calculate_total(items):\n    return sum(item['price'] * item['qty'] for item in items)\n```\n\n**Updated `orders.py`** \u2014 removed the local definition, added `from utils import calculate_total`.\n\n**Updated `invoices.py`** \u2014 removed the local definition, added `from utils import calculate_total`.\n\n## Verification\n\nBoth scripts still run correctly with the expected output:\n- `orders.py` \u2192 `35` (10\u00d72 + 5\u00d73) \u2705\n- `invoices.py` \u2192 `200` (100\u00d71 + 50\u00d72) \u2705\n\nThe duplication is gone, and both modules now import the shared implementation from `utils.py`, so any future fix or change to `calculate_total` only needs to be made in one place."
+              }
+            },
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1561.2,
+                "total_tokens": 729,
+                "duration_s": 16.2,
+                "prompt_ms": 3767.8,
+                "tok_s": 58.4,
+                "prefill_tok_s": 218.2,
+                "timings_source": "server",
+                "context_used": 1325,
+                "hit_max_tokens": false,
+                "reasoning_chars": 292,
+                "iterations": 6,
+                "tool_calls": 8,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "Done. Here's a summary of the changes:\n\n**Created `utils.py`** with the shared function:\n```python\ndef calculate_total(items):\n    return sum(item['price'] * item['qty'] for item in items)\n```\n\n**Updated `orders.py`** \u2014 removed the local definition, added `from utils import calculate_total`.\n\n**Updated `invoices.py`** \u2014 removed the local definition, added `from utils import calculate_total`.\n\n**Verification** \u2014 all three entry points run correctly:\n- `python3 orders.py` \u2192 `35` (10\u00d72 + 5\u00d73) \u2713\n- `python3 invoices.py` \u2192 `200` (100\u00d71 + 50\u00d72) \u2713\n- Direct import test: `calculate_total([{'price': 3, 'qty': 4}])` \u2192 `12` \u2713\n\nThe duplication is gone and behavior is unchanged."
+              }
+            }
+          ],
+          "level": 4
+        }
+      ]
+    },
+    "e2e_project": {
+      "metrics": {
+        "reliable_pass_rate": 0.62,
+        "any_pass_rate": 0.62
+      },
+      "cases": [
+        {
+          "name": "CLI tool",
+          "prompt": "Create a Python CLI tool called `taskman.py` that manages a TODO list stored in `tasks.json`. It should support these commands via argparse: `add <task>` (adds a task), `list` (shows all tasks with IDs), `done <id>` (marks a task as done), and `clear` (removes all tasks). Include `test_taskman.py` with tests and make sure they pass.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 12.0,
+            "avg_tool_calls": 11.0,
+            "avg_tool_errors": 1.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1627.8,
+                "total_tokens": 5910,
+                "duration_s": 125.5,
+                "prompt_ms": 14672.6,
+                "tok_s": 53.3,
+                "prefill_tok_s": 329.2,
+                "timings_source": "server",
+                "context_used": 9937,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1220,
+                "iterations": 12,
+                "tool_calls": 11,
+                "tool_errors": 1,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": false
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "The file was written to the wrong path. Let me write it in the current directory instead.\n\n\nNow let me write the test file.\n\n\nI left a broken `run_cli` method in there. Let me clean up the test file.\n\n\nNow let me run the tests.\n\n\nThe `call` helper passes integer IDs into argv, but argparse requires strings. Let me fix the helper to stringify args.\n\n\nAll 13 tests pass. Let me do a quick manual smoke test of the CLI itself.\n\n\nEverything works end to end. Here's a summary of what I created in `<repo>/test-programs/cli-tool/`:\n\n## `taskman.py`\nA CLI TODO manager built with `argparse`, using subparsers for the four commands:\n\n| Command | Behavior |\n|---|---|\n| `add <task>` | Appends a task with the next auto-incremented ID, `done: false` |\n| `list` | Prints every task as `[x]/[ ] ID: task` (empty list prints `No tasks.`) |\n| `done <id>` | Marks the task with that ID as done (exits with error if not found) |\n| `clear` | Empties the list |\n\nDetails:\n- Storage is `tasks.json` (a list of `{\"id\", \"task\", \"done\"}` objects). A `--file <path>` flag lets you override the location \u2014 handy for testing.\n- `load_tasks` returns `[]` if the file doesn't yet exist, and exits cleanly with a message on malformed JSON.\n- `next_id` computes `max(ids) + 1` so IDs stay sequential and never collide.\n\n## `test_taskman.py`\n13 unit tests (unittest-based, also pytest-compatible) that drive the CLI through `taskman.main()`, capturing stdout/stderr and using a temp file per test so nothing gets clobbered. They cover:\n- add: file creation, ID incrementing\n- list: empty output, IDs shown, done vs. open marks\n- done: marking a task, and the not-found error path (exit code + stderr)\n- clear: emptying the file, and clear-then-list\n- helpers: `next_id`, `load_tasks` on missing/malformed files\n\n## Verification\n- `python3 -m unittest test_taskman -v` \u2192 **Ran 13 tests \u2026 OK**\n- A manual CLI smoke test (add/add/done/list/clear/list) produced the expected output.\n\nOne fix during development: the test helper initially passed integer IDs straight into `argv`, which argparse rejects (`TypeError: 'int' object is not subscriptable`); I fixed the helper to stringify each argument (`[str(a) for a in argv]`)."
+              }
+            }
+          ],
+          "level": 5
+        },
+        {
+          "name": "Multi-module project",
+          "prompt": "Create a URL shortener with three modules: `shortener.py` (generates short codes from URLs using hashlib), `storage.py` (in-memory dict with `save(path)` and `load(path)` methods for JSON persistence), and `cli.py` (argparse CLI with `shorten <url>` and `resolve <code>` commands). Include tests and make sure they pass.",
+          "metrics": {
+            "pass_rate": 0.0,
+            "avg_iterations": 13.0,
+            "avg_tool_calls": 14.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": false,
+              "metrics": {
+                "ttft_ms": 1757.7,
+                "total_tokens": 4826,
+                "duration_s": 108.3,
+                "prompt_ms": 12379.9,
+                "tok_s": 50.3,
+                "prefill_tok_s": 227.6,
+                "timings_source": "server",
+                "context_used": 7636,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1538,
+                "iterations": 13,
+                "tool_calls": 14,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "The `urlparse` multi-arg form isn't available here \u2014 I'll use `urlunparse` instead:\n\n\nThe failing test has a bad expectation \u2014 path case is significant in URLs, so `/Path/` \u2260 `/path`. Let me fix the test to use genuinely equivalent URLs:\n\n\nAll 23 tests pass. Let me do a quick end-to-end CLI sanity check:\n\n\nEverything works end to end. Summary of what I built:\n\n## Files\n\n**`shortener.py`** \u2014 core logic\n- `generate_code(url, prefix=\"\")` \u2014 SHA-256 hashes the normalized URL, returns first 8 hex chars (plus optional prefix)\n- `normalize_url(url)` \u2014 strips whitespace, defaults to `http://` when no scheme, lowercases scheme/host, removes trailing slash (unless it's the root or a query/fragment follows)\n- `shorten(url)` \u2014 returns `(code, \"https://short.ly/<code>\")`\n\n**`storage.py`** \u2014 `Storage` class\n- In-memory dict with `put`/`get`/`all`, plus `__len__`/`__contains__`\n- `save(path)` \u2014 writes JSON (creates parent dirs)\n- `load(path)` \u2014 merges a JSON file into memory, validates it's an object, returns count loaded\n\n**`cli.py`** \u2014 argparse CLI\n- `python3 cli.py shorten <url>` \u2014 generates code, persists, prints `https://short.ly/<code>`\n- `python3 cli.py resolve <code>` \u2014 prints original URL, exits 1 with an error message on stderr for unknown codes\n- `--db <path>` option to control the JSON file (default `urls.json`)\n\n**`test_shortener.py`** \u2014 23 tests covering normalization, code generation (determinism, hex format, prefix, length), storage round-trips, error paths (non-object JSON, unknown code), and CLI integration via `main()`.\n\n## Verification\n\n```\nRan 23 tests in 0.005s\nOK\n```\n\nManual smoke test: `shorten` printed `https://short.ly/3af4c52e`, `resolve 3af4c52e` returned the original URL, and the JSON db contained the mapping.\n\nOne note: an initial test failure caught a real subtlety \u2014 URL path case is significant, so `http://Example.com/Path/` normalizes to `http://example.com/Path`, not `/path`. The test was corrected to compare genuinely equivalent forms."
+              }
+            }
+          ],
+          "level": 5
+        },
+        {
+          "name": "REST API with persistence",
+          "prompt": "Build a REST API using Python's `http.server` module with these endpoints: `POST /notes` (create a note with title and body, returns JSON with id), `GET /notes` (list all notes), `GET /notes/<id>` (get one note), `DELETE /notes/<id>` (delete a note). Store notes in a JSON file. The server should accept a port number as its first command line argument. Include tests that exercise all endpoints and make sure they pass.",
+          "metrics": {
+            "pass_rate": 0.0,
+            "avg_iterations": 15.0,
+            "avg_tool_calls": 15.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": false,
+              "metrics": {
+                "ttft_ms": 1750.0,
+                "first_content_ms": 6241.4,
+                "total_tokens": 7643,
+                "duration_s": 185.1,
+                "prompt_ms": 17319.6,
+                "tok_s": 45.5,
+                "prefill_tok_s": 275.8,
+                "timings_source": "server",
+                "context_used": 11253,
+                "hit_max_tokens": false,
+                "reasoning_chars": 6331,
+                "iterations": 15,
+                "tool_calls": 15,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "I'll build a notes REST API with `http.server`. Let me start by checking the workspace.\n\n\nEmpty workspace, Python 3.14 available. Let me create the server first.\n\n\nNow let me write the tests.\n\n\nThere's one concern regarding ordering: the \"empty list\" test depends on the execution order of tests. Let's make it robust by adding a `clear()` helper to the store.\n\n\nLet me check my working directory.\n\n\nFiles are in place. Now let me add a `clear()` method to the store and reset state between tests for determinism.\n\n\nLet me add a `clear()` method to the store for test isolation.\n\n\nNow let me add per-test isolation in the test file:\n\n\nNow let's run the tests:\n\n\nAll tests pass, but there are `ResourceWarning`s from unclosed `HTTPError` objects. Let me fix the helpers to close them properly:\n\n\nAll tests pass cleanly. Now a manual end-to-end smoke test of the server via its CLI (port as first argument):\n\n\nEverything works end-to-end (the timeout was just the shell `wait` hanging after the kill; all output is correct). Let me make sure no server process is lingering and clean up the demo file:\n\n\nThe match was just `pgrep` matching its own shell command line \u2014 no actual server process remains. Everything is clean and working.\n\n## Summary\n\nI built a notes REST API using Python's `http.server` module in this directory:\n\n**`notes_server.py`** \u2014 the server:\n- **Endpoints** (all JSON):\n  - `POST /notes` \u2014 create a note from `{\"title\", \"body\"}`; returns `201` with the full note including an auto-incrementing `id`. Validates input: missing/empty `title` or non-string `body` \u2192 `400`; malformed JSON \u2192 `400`.\n  - `GET /notes` \u2014 returns a JSON array of all notes.\n  - `GET /notes/<id>` \u2014 returns one note, or `404` if missing.\n  - `DELETE /notes/<id>` \u2014 deletes and returns `{\"deleted\": <id>}`, or `404` if missing.\n- **Storage**: a `NotesStore` class persists to a JSON file (default `notes.json`, overridable as a 2nd CLI arg) in the format `{\"notes\": [...], \"next_id\": n}`. Writes are atomic (write to `.tmp`, then `os.replace`), and a `threading.Lock` makes it safe under the `ThreadingHTTPServer` (one thread per connection).\n- **CLI**: `python notes_server.py <port> [storage_file]` \u2014 port is the first argument, as required; errors on a missing/non-integer port.\n\n**`test_notes.py`** \u2014 14 unittest tests that start a real server on a random port in a background thread and exercise all endpoints over HTTP:\n- POST: success returns 201 + id, unique increasing ids, 400 for missing/empty title, missing body, and invalid JSON\n- GET list: empty initially, contains created notes\n- GET one: returns exactly what was created, 404 for missing and non-numeric ids\n- DELETE: success, then GET is 404 and the note disappears from the list; 404 for missing id\n- Persistence: created notes actually appear in the JSON file on disk\n\nEach test resets the store via a `clear()` helper for isolation.\n\n**Results:**\n```\nRan 14 tests in 0.521s\nOK\n```\nAll tests pass (clean even with `ResourceWarning` escalated to error), and a manual `curl` smoke test of the real CLI server confirmed every endpoint, the 400/404 error cases, and on-disk persistence all behave correctly."
+              }
+            }
+          ],
+          "level": 6
+        },
+        {
+          "name": "Multi-step data pipeline",
+          "prompt": "Build a data processing pipeline with three scripts: `generate.py` creates a CSV file with 100 rows of fake user data (name, email, age, city), `transform.py` reads the CSV and outputs a JSON file grouped by city with user counts and average age per city, `report.py` reads the JSON and prints a formatted summary table. Include tests and make sure they pass.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 15.0,
+            "avg_tool_calls": 16.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1897.3,
+                "first_content_ms": 10673.1,
+                "total_tokens": 9388,
+                "duration_s": 201.6,
+                "prompt_ms": 24193.1,
+                "tok_s": 52.9,
+                "prefill_tok_s": 505.5,
+                "timings_source": "server",
+                "context_used": 16862,
+                "hit_max_tokens": false,
+                "reasoning_chars": 4549,
+                "iterations": 15,
+                "tool_calls": 16,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "I'll build this pipeline step by step. Let me first check the environment.\n\n\nEmpty directory with Python 3.14 and pytest available. I'll create the three pipeline scripts, then tests.\n\n\nNow the report script:\n\n\nNow the test suite:\n\n\nLet me clean up an awkward assertion in the end-to-end test:\n\n\nTwo issues to fix: `test_summarize_by_city` writes a temp file into the source dir (should use `tmp_path`), and the end-to-end row-count assertion is convoluted.\n\n\nI'll just rewrite the test file cleanly and remove that scratch file:\n\n\nNow remove the scratch file and run the test suite:\n\n\nBug in `report.py`: I mixed an int (`len(\"Users\")`) with strings in `max()`. Let me fix the width calculations:\n\n\nLet me also make sure \"Total\" fits in the city column (it's 5 chars vs \"City\" 4), then rerun tests:\n\n\nOne test expects `41.00` but the weighted average of rounded per-city values is `40.00` \u2014 my test math was wrong. Fixing the assertion to match the actual (correct) computation:\n\n\nAll 15 tests pass. Let me do a real end-to-end run of the CLI to show the actual output:"
+              }
+            }
+          ],
+          "level": 6
+        },
+        {
+          "name": "Configuration system",
+          "prompt": "Build a configuration library with `config.py` that supports: loading from a YAML-like format (use `key: value` lines, one per line, `#` comments), environment variable overrides (`APP_<KEY>` overrides `key`), default values, and type coercion (int, float, bool, str). Include a CLI tool `config_tool.py` that can `get <key>`, `set <key> <value>`, and `list` all config. The config file is `app.conf` in the current directory. Include tests and make sure they pass.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 9.0,
+            "avg_tool_calls": 10.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 2000.2,
+                "total_tokens": 6627,
+                "duration_s": 145.2,
+                "prompt_ms": 10859.5,
+                "tok_s": 49.3,
+                "prefill_tok_s": 229.4,
+                "timings_source": "server",
+                "context_used": 8047,
+                "hit_max_tokens": false,
+                "reasoning_chars": 4583,
+                "iterations": 9,
+                "tool_calls": 10,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "The `app.conf` already exists with sample data. Now let me build the config library.\n\n\nNow the tests:\n\n\nAll 30 tests pass. Quick manual sanity check of the CLI against the real `app.conf`:\n\n\nEverything works. Let me restore `app.conf` to its original state:\n\n\nDone. The configuration library is complete with all 30 tests passing.\n\n## Files created\n\n**`config.py`** \u2014 the library:\n- **YAML-like parsing**: `key: value` lines, `#` comments and blank lines skipped, `ConfigError` on malformed lines\n- **Env overrides**: `APP_<KEY>` (uppercased) overrides the file value, and env values are type-coerced too\n- **Defaults**: per-call `default` argument plus a `defaults` dict; precedence is env \u2192 file \u2192 explicit default \u2192 defaults dict\n- **Type coercion** via `coerce()`: `true/false/yes/no/on/off` \u2192 `bool`, integer literals \u2192 `int`, float literals (incl. exponent form) \u2192 `float`, everything else \u2192 `str`\n- `Config` class with `get`, `set` (persists to `app.conf`, updating in place or appending, preserving comments), `items()`, `as_dict()`, `__contains__`, plus a `load_config()` factory\n\n**`config_tool.py`** \u2014 CLI:\n- `get <key>` \u2014 prints value (exit 1 with error if missing)\n- `set <key> <value>` \u2014 writes to `app.conf`, prints the stored (coerced) value\n- `list` \u2014 prints all resolved entries, sorted\n\n**`test_config.py`** \u2014 30 tests covering coercion, parsing, precedence, env overrides (both injected and real `os.environ`), persistence semantics of `set`, and end-to-end CLI subprocess tests in a temp directory.\n\n## Verification\n- `python3 -m unittest test_config` \u2192 **Ran 30 tests ... OK**\n- Manual CLI check: `get port` \u2192 `8080`, `list` shows all four entries, `APP_DEBUG=false` correctly overrides to `False`, and `set` round-trips through the file (including in-place update of an existing key). `app.conf` was restored to its original content afterward."
+              }
+            }
+          ],
+          "level": 6
+        },
+        {
+          "name": "Fix a multi-file bug",
+          "prompt": "This project has a bug. Users report that when they add items to their cart and then apply a discount code, the total is wrong. Find the bug, fix it, and add a test that would have caught it.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 11.0,
+            "avg_tool_calls": 12.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1674.1,
+                "total_tokens": 2479,
+                "duration_s": 57.6,
+                "prompt_ms": 8813.5,
+                "tok_s": 50.8,
+                "prefill_tok_s": 591.3,
+                "timings_source": "server",
+                "context_used": 4296,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1879,
+                "iterations": 11,
+                "tool_calls": 12,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "I found the bug. In `cart.py`, `apply_discount` **caches** the total at the point the code is applied:\n\n```python\nself._discounted_total = subtotal * (1 - rate)\n```\n\nAfter that, `get_total()` returns that stale cached value. So if the user applies a discount code and then adds more items to the cart (a very common flow: add item, apply code, add more items), the new items are silently excluded from the total.\n\nI'll fix this by removing the cache and always computing the total dynamically:\n\n\nNow let me add regression tests that would have caught this bug:\n\n\nNow let me verify the fix passes all tests, and also confirm the new test would have failed against the old buggy code:\n\n\nAll 5 tests pass. Let me verify the new regression test actually would have caught the original bug by running it against the old buggy implementation:\n\n\nVerified: the new tests fail against the buggy implementation (`16.0 != 24.0`) and pass against the fixed one. Everything is done.\n\n## Summary\n\n**The bug** (in `cart.py`): `apply_discount()` was *caching* the discounted total at the moment the code was applied:\n\n```python\nself._discounted_total = subtotal * (1 - rate)\n```\n\n`get_total()` then returned that stale cached value forever. So when a user added items to the cart *after* applying a discount code, the new items were silently ignored in the total \u2014 e.g., a cart of $30 with a 20% discount would report $16 instead of $24.\n\n**The fix** (`cart.py`): removed the `_discounted_total` cache entirely. `get_total()` now always recomputes the total from the current items and the applied discount rate:\n\n```python\ndef get_total(self):\n    subtotal = sum(i[\"price\"] * i[\"qty\"] for i in self._items)\n    return subtotal * (1 - self._discount_rate)\n```\n\n**Tests added** (`test_cart.py`):\n- `test_add_items_after_discount` \u2014 adds items, applies `SAVE20`, then adds more items and asserts the total reflects all items (24.0, not the stale 16.0).\n- `test_add_items_before_discount` \u2014 same scenario with a different code (`HALF`) to make sure it's not specific to one discount.\n\nBoth were confirmed to **fail against the original buggy code** and **pass with the fix**, and all 5 tests in the suite now pass."
+              }
+            }
+          ],
+          "level": 7
+        },
+        {
+          "name": "Untangle spaghetti code",
+          "prompt": "The file `analyzer.py` works but is a mess \u2014 one big function that does everything. Refactor it into clean, testable functions without changing its behavior. The existing `test_analyzer.py` must still pass after your changes. Add tests for the new functions you extract.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 12.0,
+            "avg_tool_calls": 13.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1609.4,
+                "total_tokens": 3350,
+                "duration_s": 81.7,
+                "prompt_ms": 10639.8,
+                "tok_s": 47.1,
+                "prefill_tok_s": 426.3,
+                "timings_source": "server",
+                "context_used": 5975,
+                "hit_max_tokens": false,
+                "reasoning_chars": 1615,
+                "iterations": 12,
+                "tool_calls": 13,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "Now I'll refactor into small, testable functions while keeping `analyze`'s behavior identical.\n\n\nNow I'll add tests for the new functions to the existing test file:\n\n\nOne test of mine had a wrong expectation \u2014 the apostrophe in \"It's\" splits into \"it\" and \"s\" with this regex. I'll fix the test to match the actual (correct, unchanged) behavior:\n\n\nAll 29 tests pass. Let me verify the refactored output is byte-identical to the original implementation's output:\n\n\nThe output matches `.expected.json` (word_count 101, unique_words 72, sentence_count 11). \n\n## Summary\n\n**Refactored `analyzer.py`** \u2014 the one big `analyze` function is now a thin orchestrator over small, pure, testable functions:\n\n| Function | Responsibility |\n|---|---|\n| `extract_words(text)` | regex word extraction (lowercased) |\n| `word_frequency(words)` | builds the `Counter` |\n| `top_words(freq, n=5)` | most-common words |\n| `average_word_length(words)` | avg length, 0 for empty |\n| `split_sentences(text)` | split on `.!?`, strip, drop empties |\n| `sentence_word_count(sentence)` | word count per sentence |\n| `find_longest_and_shortest(sentences)` | returns `(longest, shortest)` tuple |\n| `average_sentence_length(word_count, sentence_count)` | words per sentence, 0 if none |\n| `count_lines(text)` | line counting |\n\nBehavior is preserved exactly \u2014 edge cases like \"shortest must have \u22651 word\", empty-text handling, and the `round(..., 2)` rounding all live in their extracted functions with the same logic.\n\n**Tests** \u2014 kept the original 4 tests unchanged, and added 25 tests covering every extracted function, including edge cases (empty inputs, zero-word sentences, ties, default `n=5` for top words, trailing newlines), plus an integration test pinning `analyze(\"sample.txt\")` to the expected values.\n\nOne note: my first draft of `test_extract_words_ignores_numbers_and_punctuation` had a wrong expectation of its own (I assumed apostrophes join letters, but the `[a-zA-Z]+` regex splits \"It's\" into \"it\"/\"s\") \u2014 I corrected the test to match the actual unchanged behavior. All 29 tests pass."
+              }
+            }
+          ],
+          "level": 7
+        },
+        {
+          "name": "Race condition fix",
+          "prompt": "The file `counter.py` implements a thread-safe counter, but it has a race condition. The test in `test_counter.py` passes most of the time but occasionally fails. Find the race condition, fix it, and make the test reliable.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 5.0,
+            "avg_tool_calls": 5.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1593.4,
+                "total_tokens": 993,
+                "duration_s": 27.3,
+                "prompt_ms": 4454.5,
+                "tok_s": 43.4,
+                "prefill_tok_s": 419.8,
+                "timings_source": "server",
+                "context_used": 1992,
+                "hit_max_tokens": false,
+                "reasoning_chars": 961,
+                "iterations": 5,
+                "tool_calls": 5,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "Found it. In `counter.py`, `increment()`/`decrement()` do a **read-modify-write** (`current = self._value` \u2026 `self._value = current + 1`) with no synchronization. The `time.sleep` widens the window, so when threads run concurrently, one thread's write gets overwritten by another thread's stale `current`, and increments are lost. This is why the test only occasionally fails.\n\nThe fix is to protect the read-modify-write with a lock:\n\n\nThe lock serializes the read-modify-write so no increment is ever lost. Now let me verify the test passes reliably by running it many times:\n\n\n`python` isn't on PATH. Let me try `python3`:\n\n\nAll 30 runs pass. Here's a summary:\n\n## The race condition\n\nIn `counter.py`, both `increment()` and `decrement()` performed an **unsynchronized read-modify-write**:\n\n```python\ncurrent = self._value      # read\ntime.sleep(0.001)          # widens the race window\nself._value = current + 1  # write based on stale read\n```\n\nWith 10 threads incrementing concurrently, two threads could read the same `current`, and one thread's write would overwrite the other's, **losing increments**. The `time.sleep` dramatically widened the window so failures were frequent but still nondeterministic (hence \"passes most of the time\").\n\n## The fix\n\nI added a `threading.Lock` to `Counter` and wrapped the read-modify-write (and the `value` property, for a consistent read) in `with self._lock:` blocks. This serializes the operations so every increment is accounted for.\n\nThe test itself is already correct and doesn't need changing \u2014 with the race eliminated, it's now deterministic and reliable (verified across 30 consecutive runs, all passing)."
+              }
+            }
+          ],
+          "level": 7
+        },
+        {
+          "name": "Markdown to HTML converter",
+          "prompt": "Build a Markdown to HTML converter in `markdown.py` that handles: headings (`#` through `###`), bold (`**text**`), italic (`*text*`), inline code (backtick-wrapped), code blocks (triple backtick), unordered lists (`- item`), links (`[text](url)`), and paragraphs (blank line separated). Include a CLI `md2html.py` that takes an input file and prints HTML to stdout. Include tests and make sure they pass.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 6.0,
+            "avg_tool_calls": 6.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1735.2,
+                "first_content_ms": 26550.4,
+                "total_tokens": 4778,
+                "duration_s": 105.8,
+                "prompt_ms": 7809.6,
+                "tok_s": 48.7,
+                "prefill_tok_s": 357.1,
+                "timings_source": "server",
+                "context_used": 5103,
+                "hit_max_tokens": false,
+                "reasoning_chars": 5041,
+                "iterations": 6,
+                "tool_calls": 6,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "I'll build this step by step: the converter module, the CLI, then tests.\n\n\nNow the tests:\n\n\nAll 24 tests pass. Let me do a quick end-to-end sanity check of the CLI and clean up the temp file:\n\n\nDone. All 24 tests pass and the CLI works end to end.\n\n**`markdown.py`** \u2014 the converter, exposing `markdown_to_html(text)`:\n- **Headings** `#`\u2013`###` \u2192 `<h1>`\u2013`<h3>`\n- **Bold** `**text**` \u2192 `<strong>`, **italic** `*text*` \u2192 `<em>`\n- **Inline code** `` `text` `` \u2192 `<code>` (split out first so no formatting applies inside it)\n- **Code blocks** fenced with ``` \u2192 `<pre><code>`, contents HTML-escaped and unformatted\n- **Unordered lists** `- item` \u2192 `<ul><li>` (consecutive items grouped)\n- **Links** `[text](url)` \u2192 `<a href=\"url\">`\n- **Paragraphs** \u2014 blank-line-separated blocks; consecutive lines joined\n- HTML escaping via `html.escape` everywhere, so `<script>` etc. in input can't inject markup\n\n**`md2html.py`** \u2014 CLI: `python3 md2html.py input.md` prints HTML to stdout, with proper exit codes and stderr messages for missing args/files.\n\n**`test_markdown.py`** \u2014 24 tests covering each construct, edge cases (unterminated fence, code spans shielding formatting, HTML escaping), a full mixed document, and CLI behavior (success, missing file, no args).\n\n```\n============================== 24 passed in 0.08s ==============================\n```"
+              }
+            }
+          ],
+          "level": 8
+        },
+        {
+          "name": "Log parser with pattern matching",
+          "prompt": "Build a log analysis tool. `parser.py` parses log lines in the format `[YYYY-MM-DD HH:MM:SS] LEVEL: message` and extracts timestamp, level (INFO/WARN/ERROR), and message. `analyzer.py` takes a log file and produces: error count by hour, most frequent error messages (top 5), average time between consecutive errors, and any WARN that was followed by an ERROR within 60 seconds (potential escalations). `cli.py` takes a log file path and prints the analysis. Include tests and make sure they pass.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 13.0,
+            "avg_tool_calls": 14.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1796.4,
+                "total_tokens": 9626,
+                "duration_s": 217.1,
+                "prompt_ms": 19003.5,
+                "tok_s": 48.6,
+                "prefill_tok_s": 553.4,
+                "timings_source": "server",
+                "context_used": 13170,
+                "hit_max_tokens": false,
+                "reasoning_chars": 7125,
+                "iterations": 13,
+                "tool_calls": 14,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "Now the tests:\n\n\nThree test bugs to fix: the parser's `strip()` removes trailing spaces (empty message fails), same-timestamp escalation uses `<` vs `<=`, and my sample.log error count was wrong (it's 6 errors, not 5). Fixing parser and analyzer:\n\n\nAll 31 tests pass. Let me verify the final files and run the CLI on the sample log:\n\n\nDone. The tool is complete and all 31 tests pass. Summary of what was built in the project directory:\n\n**`parser.py`** \u2014 parses lines of the form `[YYYY-MM-DD HH:MM:SS] LEVEL: message`\n- `LogEntry` dataclass with `timestamp` (datetime), `level`, `message`, plus an `hour` bucket property\n- `parse_line()` \u2192 entry or `None` for malformed lines, unknown levels (only INFO/WARN/ERROR), or invalid dates\n- `parse_log()` / `parse_log_file()` for bulk parsing, silently skipping bad lines\n- Handles edge cases: messages containing colons, empty messages, surrounding whitespace\n\n**`analyzer.py`** \u2014 `analyze(entries)` produces an `Analysis` with:\n- **Error count by hour** (hour buckets sorted chronologically)\n- **Top 5 most frequent error messages** (ties broken alphabetically)\n- **Average time between consecutive errors** in seconds (`None` when fewer than 2 errors)\n- **Potential escalations**: WARN entries with an ERROR following within 60 seconds (inclusive of both the 60s boundary and same-timestamp), with the delta recorded\n- Entries are processed in chronological order regardless of file order (matters since `sample.log` is not fully sorted)\n- `analyze_file(path)` convenience wrapper\n\n**`cli.py`** \u2014 `python3 cli.py <logfile>` prints a formatted report (total errors, per-hour counts, top messages, average interval, escalations with WARN\u2192ERROR details). Returns exit code 1 with a stderr message if the file is missing.\n\n**`test_logtool.py`** \u2014 31 tests covering all three modules: valid/invalid line parsing, level validation, date validation, hour bucketing, per-hour counts (incl. sort order), top-5 truncation and tie-breaking, average interval (chronological sorting, 0/1 error cases), escalation window boundaries (60s in, 61s out, error-before-warn, multiple errors after one WARN), end-to-end file analysis, and CLI output/exit codes including an end-to-end run on the provided `sample.log`.\n\nVerified output on `sample.log`: 6 errors (4 in hour 10:00, 2 in 11:00), \"Database connection timeout\" most frequent (3\u00d7), 1063s average interval, and 2 potential escalations detected."
+              }
+            }
+          ],
+          "level": 8
+        },
+        {
+          "name": "Key-value store with TCP protocol",
+          "prompt": "Build a TCP key-value store. `server.py` listens on a port (passed as first command line argument) and handles commands: `SET key value`, `GET key`, `DELETE key`, `KEYS` (list all keys). Use a simple text protocol \u2014 one command per line, responses are `OK value` or `ERROR message`. `client.py` provides a `KVClient` class that connects and exposes `set()`, `get()`, `delete()`, `keys()` methods. Data persists to a JSON file on disk. Include tests that start the server, run operations through the client, and verify correctness. Make sure tests pass.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 15.0,
+            "avg_tool_calls": 16.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1972.0,
+                "total_tokens": 8081,
+                "duration_s": 174.9,
+                "prompt_ms": 18532.9,
+                "tok_s": 51.7,
+                "prefill_tok_s": 176.0,
+                "timings_source": "server",
+                "context_used": 12528,
+                "hit_max_tokens": false,
+                "reasoning_chars": 3309,
+                "iterations": 15,
+                "tool_calls": 16,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "I'll build the key-value store. Let me create the three files:\n\n\nLet me clean up the socket import in client.py and write the tests:\n\n\nAll 9 tests pass. Let me clean up the ResourceWarning by closing the stdout pipe:\n\n\nThe restart path still leaves a pipe open. Let me refactor to a shared helper:\n\n\nAll 9 tests pass with no warnings. Let me do a quick manual sanity check of the raw protocol:\n\n\nThe connection stayed open so `f.read()` blocked. Let me read line-by-line instead:\n\n\nThe protocol works perfectly (an old server instance from the previous run answered \u2014 let me kill it):\n\n\nAll done. The implementation is complete and verified:\n\n## Files\n\n**`server.py`** \u2014 TCP server (`python3 server.py <port> [data_file]`):\n- Listens on the port from the first CLI arg, defaults data file to `kv_store.json`\n- Line-based text protocol, one response line per command\n- `SET key value` \u2192 `OK`; `GET key` \u2192 `OK value` or `ERROR key not found: ...`; `DELETE key` \u2192 `OK`/`ERROR`; `KEYS` \u2192 `OK key1 key2 ...`\n- `KeyValueStore` class with a lock (thread-safe), persists to JSON on every mutation via atomic write (temp file + `os.replace`)\n- Handles multiple concurrent clients with one thread per connection\n\n**`client.py`** \u2014 `KVClient` class with `set()`, `get()`, `delete()`, `keys()` plus a `KVError` exception; works as a context manager (`with KVClient(host, port) as kv:`), with lazy connection and line-based response framing.\n\n**`test_kv_store.py`** \u2014 9 unittest tests that start `server.py` as a subprocess on an ephemeral port with an isolated temp data file, then exercise the client:\n- set/get, missing key, overwrite, delete (incl. double-delete), keys listing\n- persistence to disk (validates JSON file contents directly)\n- persistence across a server **restart** (same port + data file)\n- concurrent/multiple clients, unknown-command error path\n\n## Verification\n- `python3 -W error::ResourceWarning test_kv_store.py` \u2192 **9/9 tests pass**, no warnings\n- Manual protocol check confirmed the wire format:\n  ```\n  SET name alice  -> OK\n  GET name        -> OK alice\n  KEYS            -> OK city name\n  DELETE name     -> OK\n  GET name        -> ERROR key not found: name\n  BADCMD          -> ERROR unknown command: BADCMD\n  ```"
+              }
+            }
+          ],
+          "level": 8
+        },
+        {
+          "name": "Job queue with workers",
+          "prompt": "Build a file-based job queue system. `queue.py` provides a `JobQueue` class that can `submit(command)` (returns job ID), `status(job_id)` (returns pending/running/completed/failed), `result(job_id)` (returns stdout), and `list_jobs()`. `worker.py` is a long-running process that polls the queue directory, picks up pending jobs, executes them as shell commands, and writes results. `cli.py` provides commands: `submit <command>`, `status <id>`, `result <id>`, `list`. Jobs are stored as JSON files in a `jobs/` directory. Include tests and make sure they pass.",
+          "metrics": {
+            "pass_rate": 1.0,
+            "avg_iterations": 14.0,
+            "avg_tool_calls": 13.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": true,
+              "metrics": {
+                "ttft_ms": 1853.7,
+                "first_content_ms": 33866.6,
+                "total_tokens": 11801,
+                "duration_s": 267.6,
+                "prompt_ms": 20698.6,
+                "tok_s": 47.8,
+                "prefill_tok_s": 430.2,
+                "timings_source": "server",
+                "context_used": 15145,
+                "hit_max_tokens": false,
+                "reasoning_chars": 10722,
+                "iterations": 14,
+                "tool_calls": 13,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "search_files",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "I'll build this system: a `JobQueue` class, a polling worker, a CLI, and tests. Let me start by checking the workspace.\n\n\nEmpty workspace. I'll design the system:\n\n- **Jobs**: JSON files in `jobs/` directory (`<id>.json`) with fields `id`, `command`, `status`, `stdout`, `stderr`, `exit_code`, timestamps. Atomic writes (temp file + rename) to avoid corruption.\n- **Worker**: polls `jobs/`, claims pending jobs by renaming to `<id>.json.claimed` (prevents double-processing by multiple workers), runs the command via shell, writes results.\n- **CLI**: argparse subcommands.\n\n\nLet me fix a bug in `finish()`: when the job file is at the claimed location, it should be moved back to the normal name.\n\n\nI found a bug: when the file is at the claimed location (`path == claimed`), the file would never be moved back to the normal name. Let me fix `finish()`:\n\n\nNow the worker:\n\n\nNow the CLI:\n\n\nNow the tests:\n\n\nNow let me run the tests:\n\n\nThe command changed directories. Let me run from the workspace directory:\n\n\nAll 26 tests pass. Now let me do an end-to-end smoke test with the actual worker running as a background process:\n\n\nThe end-to-end flow works: the worker picks up jobs, executes them, and the CLI reports status and results. Let me add a README to document the system:\n\n\nLet me verify everything once more \u2014 full test suite and syntax check:\n\n\nAll done. The system is complete and working:\n\n## What was built\n\n**`queue.py`** \u2014 the `JobQueue` class:\n- `submit(command)` \u2192 returns a UUID job ID, writes a `<id>.json` file with `pending` status\n- `status(job_id)` \u2192 `pending` / `running` / `completed` / `failed`\n- `result(job_id)` \u2192 the job's captured stdout\n- `list_jobs()` \u2192 all job records, newest first\n- Plus worker helpers: `pending_ids()`, `claim()` (atomic rename to `<id>.json.claimed` so multiple workers can't double-run a job), `start()`, `finish()` (releases the claim), `release_claim()`\n- All writes are atomic (temp file + `os.replace` + fsync), so readers never see corrupted JSON\n\n**`worker.py`** \u2014 long-running polling process:\n- Polls the jobs dir every 0.2s (configurable), claims pending jobs, executes them via `subprocess.run(..., shell=True)` capturing stdout/stderr/exit code, writes results back (exit 0 \u2192 `completed`, else `failed`)\n- `--once` flag for one-shot processing; handles per-job timeouts and keeps running on errors\n\n**`cli.py`** \u2014 argparse-based CLI:\n- `submit <command>` (prints job ID), `status <id>`, `result <id>`, `list` (active jobs, or all with `--all`)\n- Queue directory via `--jobs-dir` or `$JOB_QUEUE_DIR`\n\n**`test_queue.py`** \u2014 26 tests, all passing, covering: job file creation, status/result/unknown-ID errors, full lifecycle (claim \u2192 run \u2192 finish), failure paths, claim exclusivity, list ordering/claim visibility, JSON validity, worker execution (in-process and as a real subprocess), and all CLI commands.\n\n**`README.md`** \u2014 documents the file format, usage, and design.\n\nI also verified an end-to-end smoke test: worker running in the background, submitted jobs via CLI, confirmed `completed` status with correct stdout, a failing job reported `failed` with exit code 42, and `list --all` showed both."
+              }
+            }
+          ],
+          "level": 9
+        },
+        {
+          "name": "File sync tool",
+          "prompt": "Build a one-way file sync tool that mirrors a source directory to a destination directory. `sync.py` provides a `sync(src, dst)` function that: copies new files, updates modified files (compare by mtime and size), deletes files in dst that don't exist in src, handles nested subdirectories recursively, and returns a report of actions taken (copied, updated, deleted, unchanged). `cli.py` takes source and destination paths and prints the sync report. Include a `--dry-run` flag that shows what would happen without making changes. Include tests and make sure they pass.",
+          "metrics": {
+            "pass_rate": 0.0,
+            "avg_iterations": 15.0,
+            "avg_tool_calls": 17.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": false,
+              "metrics": {
+                "ttft_ms": 1963.5,
+                "total_tokens": 9391,
+                "duration_s": 224.1,
+                "prompt_ms": 15338.3,
+                "tok_s": 45.0,
+                "prefill_tok_s": 387.3,
+                "timings_source": "server",
+                "context_used": 10577,
+                "hit_max_tokens": false,
+                "reasoning_chars": 12062,
+                "iterations": 15,
+                "tool_calls": 17,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  }
+                ],
+                "response_text": "Empty directory \u2014 I'll create the project from scratch.\n\n\nNow the tests:\n\n\nOne test is timing-sensitive (same-second writes could give equal mtimes). Let me make it deterministic with `os.utime`:\n\n\nSeveral failures \u2014 let me debug:\n\n\nStill failing even with explicit mtimes. Let me debug what's happening with the mtime comparison:\n\n\n`copy2` works fine in isolation. Let me run the failing test with full detail:\n\n\nThe second sync marks it as updated instead of unchanged. Let me trace the exact sequence:\n\n\nOn the second sync the dst file isn't being found \u2014 `_walk_files(dst)` seems to return nothing. Let me check:\n\n\nThe walk works standalone. Let me instrument `sync` directly:\n\n\nVery strange \u2014 the file appears on the next walk. Let me look at what's on disk right after the first sync:\n\n\nFound it. In `sync()`, `dst_files` is keyed by **relative** path, but I'm checking `if dst_path not in dst_files` using the **absolute** path \u2014 so dst files are never matched. Fix:"
+              }
+            }
+          ],
+          "level": 9
+        },
+        {
+          "name": "Plugin system",
+          "prompt": "Build an extensible text processor with a plugin architecture. `processor.py` defines a `Plugin` base class with a `process(text) -> text` method and a `PluginManager` that discovers and loads plugins from a `plugins/` directory. `cli.py` takes input text (from a file path argument) and applies all loaded plugins in order. Create three example plugins in `plugins/`: `uppercase.py` (converts to uppercase), `strip_html.py` (removes HTML tags), and `word_count.py` (appends a word count line at the end). Plugins should be loaded automatically by filename \u2014 no registration needed. Include tests and make sure they pass.",
+          "metrics": {
+            "pass_rate": 0.0,
+            "avg_iterations": 10.0,
+            "avg_tool_calls": 14.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": false,
+              "metrics": {
+                "ttft_ms": 1716.3,
+                "total_tokens": 5581,
+                "duration_s": 128.4,
+                "prompt_ms": 10636.1,
+                "tok_s": 47.4,
+                "prefill_tok_s": 315.1,
+                "timings_source": "server",
+                "context_used": 7230,
+                "hit_max_tokens": false,
+                "reasoning_chars": 4828,
+                "iterations": 10,
+                "tool_calls": 14,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "Now the three plugins:\n\n\nNow the tests:\n\n\nNow run the tests:\n\n\nTwo bugs to fix: `WordCount` creates a double newline when text ends with `\\n`, and my custom-plugin-dir test expectation was wrong (the custom dir only contains the `exclaim` plugin, so no uppercasing happens).\n\n\nAll 19 tests pass. Quick end-to-end demo:\n\n\nDone. All 19 tests pass. Here's what was built:\n\n**Structure:**\n```\nplugin-system/\n\u251c\u2500\u2500 processor.py        # Plugin base class + PluginManager\n\u251c\u2500\u2500 cli.py              # CLI entry point\n\u251c\u2500\u2500 plugins/\n\u2502   \u251c\u2500\u2500 strip_html.py   # removes HTML tags\n\u2502   \u251c\u2500\u2500 uppercase.py    # converts to uppercase\n\u2502   \u2514\u2500\u2500 word_count.py   # appends \"Word count: N\" line\n\u2514\u2500\u2500 tests/\n    \u2514\u2500\u2500 test_processor.py\n```\n\n**Key design points:**\n\n- **`processor.py`** \u2014 `Plugin` is a simple base class with `process(text) -> text`. `PluginManager` scans the `plugins/` directory (default: `plugins/` next to the script) for `*.py` files, imports each module, and auto-registers every `Plugin` subclass defined in it \u2014 no registration needed. Modules are loaded in sorted filename order (so: `strip_html` \u2192 `uppercase` \u2192 `word_count`), which also determines application order. `apply_all()` auto-loads on first use; `register()` allows manual additions; a missing/empty plugin dir degrades gracefully to identity processing.\n\n- **`cli.py`** \u2014 `python cli.py <input-file>` reads the file, applies all plugins in order, prints to stdout. Supports `--output FILE` and `--plugin-dir DIR` for pointing at alternate plugin directories.\n\n- **Plugins** \u2014 `StripHtml` uses a regex handling attributes with quotes; `Uppercase` calls `text.upper()`; `WordCount` appends a count line, normalizing trailing newlines so no blank lines are produced.\n\n**Tests** cover: base class identity, discovery (all 3 plugins found, idempotent loading, missing dir, manual registration), each plugin individually, full pipeline order, and the CLI end-to-end via subprocess (stdout, output file, missing file error, and a custom plugin dir containing a user-written plugin \u2014 proving the zero-registration extension model).\n\nExample run: `<p>hello <b>world</b></p>` \u2192 `HELLO WORLD` + `Word count: 2`."
+              }
+            }
+          ],
+          "level": 9
+        },
+        {
+          "name": "Chat room server",
+          "prompt": "Build a multi-client chat room over TCP. `server.py` accepts multiple simultaneous connections using threading (port passed as first argument), broadcasts messages to all connected clients, supports commands `/nick <name>` (set nickname, default is 'anonymous'), `/who` (list connected users), `/quit` (disconnect). `client.py` provides a `ChatClient` class that connects, sends messages, and receives broadcasts in a background thread. Server logs all messages to `chat.log` with timestamps. Include tests that connect multiple clients, send messages, verify broadcasts, and test nick changes. Make sure tests pass.",
+          "metrics": {
+            "pass_rate": 0.0,
+            "avg_iterations": 15.0,
+            "avg_tool_calls": 16.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": false,
+              "metrics": {
+                "ttft_ms": 1069.1,
+                "total_tokens": 10467,
+                "duration_s": 247.6,
+                "prompt_ms": 24318.9,
+                "tok_s": 46.9,
+                "prefill_tok_s": 323.1,
+                "timings_source": "server",
+                "context_used": 17545,
+                "hit_max_tokens": false,
+                "reasoning_chars": 7729,
+                "iterations": 15,
+                "tool_calls": 16,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "list_directory",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "I'll build a threaded TCP chat server, a client class, and tests. Let me start with the server.\n\n\nI have a bug: after a nick change, the broadcast in `_handle_client` uses the stale `nick`. Let me fix `_process` to return the updated nick.\n\n\nNow the client:\n\n\nThe `wait_for_count` method has hacky code. Let me clean it up by importing time at the top.\n\n\nLet me also remove the `import time` inside `wait_for` since it's now at top level.\n\n\nClient looks good. Now let me write the tests:\n\n\nNow let me run the tests:\n\n\nTwo bugs found: (1) the server's `stdout=subprocess.PIPE` is never drained, so the pipe buffer fills and the server blocks on `print()`, halling all clients; (2) chat messages aren't actually logged (the log only shows CONNECT/DISCONNECT). Let me fix both.\n\n\nNow rerun the tests:\n\n\nLog test passes now but others still time out. Let me debug manually with a quick script:\n\n\nThe server itself failed to start. Let me see its error:\n\n\nThe server died in that subprocess. Let me capture its stderr to see why:\n\n\nServer starts fine in isolation. Let me test the full ChatClient flow directly:"
+              }
+            }
+          ],
+          "level": 10
+        },
+        {
+          "name": "Database-backed CRUD app",
+          "prompt": "Build a contact manager backed by SQLite. `db.py` handles database setup and provides functions: `add_contact(name, email, phone, tags)`, `get_contact(id)`, `search_contacts(query)` (searches name and email), `update_contact(id, **fields)`, `delete_contact(id)`, `list_contacts(tag=None)` (optionally filter by tag). `export.py` exports contacts to CSV or JSON (format chosen by flag). `cli.py` provides subcommands: `add`, `list`, `search <query>`, `show <id>`, `edit <id>`, `delete <id>`, `export --format csv|json`. Include tests covering all operations including edge cases (empty search, nonexistent ID). Make sure tests pass.",
+          "metrics": {
+            "pass_rate": 0.0,
+            "avg_iterations": 15.0,
+            "avg_tool_calls": 16.0,
+            "avg_tool_errors": 0.0
+          },
+          "runs": [
+            {
+              "passed": false,
+              "metrics": {
+                "ttft_ms": 2066.2,
+                "total_tokens": 13416,
+                "duration_s": 294.2,
+                "prompt_ms": 23106.1,
+                "tok_s": 49.5,
+                "prefill_tok_s": 667.7,
+                "timings_source": "server",
+                "context_used": 17316,
+                "hit_max_tokens": false,
+                "reasoning_chars": 9875,
+                "iterations": 15,
+                "tool_calls": 16,
+                "tool_errors": 0,
+                "self_verified": true
+              },
+              "details": {
+                "tool_log": [
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "read_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "write_file",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  },
+                  {
+                    "type": "call",
+                    "tool_name": "run_command",
+                    "success": true
+                  }
+                ],
+                "response_text": "Let me fix the export default handling in cli.py:\n\n\nNow the tests:\n\n\nTwo issues: export files are read after the temp dir is deleted, and stderr isn't captured. Let me fix both in tests.py:\n\n\nOdd \u2014 the test listing shows unexpected names. Let me investigate:\n\n\nSomething strange with discovery \u2014 135 tests. Let me check what's being discovered:\n\n\nInheritance causes each TestCase class to run all parent tests too. Let me refactor to use a mixin:\n\n\nNow let me fix the export tests (files read after temp dir deleted) and CLI stderr capture. I'll rewrite those sections:\n\n\nThe `add` helper lives in `DBTestCase` but not in the mixin. Move it:"
+              }
+            }
+          ],
+          "level": 10
+        }
+      ]
+    }
+  }
+}
