@@ -2,7 +2,7 @@ from benchmarks.runner import AppClient, AppClientError
 
 
 def test_client_creation():
-    client = AppClient(server="localhost:8082")
+    client = AppClient(server="localhost:8082", app_python="python", app_main="main.py")
     assert client.server == "localhost:8082"
     assert client.model is None
 
@@ -22,7 +22,7 @@ def _bench_line(**kw):
 
 
 def test_parse_response_lines():
-    client = AppClient(server="localhost:8082")
+    client = AppClient(server="localhost:8082", app_python="python", app_main="main.py")
     lines = [
         "The capital of France is Paris.\n",  # rendered TTY text — ignored
         _bench_line(content="The capital of France is Paris.",
@@ -39,7 +39,7 @@ def test_parse_response_lines():
 
 
 def test_parse_response_with_tool_calls():
-    client = AppClient(server="localhost:8082")
+    client = AppClient(server="localhost:8082", app_python="python", app_main="main.py")
     lines = [
         _bench_line(iteration=0, content="Let me check the file.",
                     tools=[{"name": "read_file", "ok": True}],
@@ -61,7 +61,7 @@ def test_parse_response_with_tool_calls():
 
 
 def test_parse_response_with_tool_errors():
-    client = AppClient(server="localhost:8082")
+    client = AppClient(server="localhost:8082", app_python="python", app_main="main.py")
     lines = [
         _bench_line(tools=[{"name": "read_file", "ok": False}]),
     ]
@@ -72,7 +72,7 @@ def test_parse_response_with_tool_errors():
 def test_parse_response_fails_closed_without_bench_records():
     import pytest
     from benchmarks.runner import AppClientError
-    client = AppClient(server="localhost:8082")
+    client = AppClient(server="localhost:8082", app_python="python", app_main="main.py")
     with pytest.raises(AppClientError):
         client._parse_response(["plain text only\n"], started_at=0.0, first_output_at=0.1)
 
