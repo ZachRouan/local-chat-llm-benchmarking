@@ -64,7 +64,8 @@ def _case10_verify(work_dir: Path, response: str) -> bool:
     if r.returncode != 0:
         return False
     output_lower = r.stdout.lower()
-    if "done" not in output_lower and "✓" not in r.stdout and "[x]" not in output_lower:
+    done_markers = ("done", "✓", "[x]", "(x)", "[✔", "✔")
+    if not any(m in output_lower or m in r.stdout for m in done_markers):
         return False
 
     r = run_python(work_dir, "taskman.py", "clear")
@@ -104,14 +105,24 @@ def _case11_verify(work_dir: Path, response: str) -> bool:
     r = run_python(work_dir, "cli.py", "shorten", "https://example.com")
     if r.returncode != 0:
         return False
-    raw = r.stdout.strip().split()[-1] if r.stdout.strip() else ""
-    if not raw:
+    out = r.stdout.strip()
+    if not out:
         return False
-    # The tool may print the bare code or a full short URL — try the last
-    # token as-is and, if it contains slashes, its final path segment.
-    code_candidates = [raw]
-    if "/" in raw:
-        code_candidates.append(raw.rstrip("/").rsplit("/", 1)[-1])
+    # Output formats seen in the wild: a bare code, a short URL, or a
+    # "short -> original" mapping. Collect every plausible code: each
+    # token and each token's final path segment (skipping the original
+    # URL itself), newest tokens first.
+    code_candidates: list[str] = []
+    for tok in reversed(out.split()):
+        tok = tok.strip(",;")
+        if tok in ("->", "=>", "https://example.com"):
+            continue
+        code_candidates.append(tok)
+        if "/" in tok:
+            seg = tok.rstrip("/").rsplit("/", 1)[-1]
+            if seg and seg not in code_candidates:
+                code_candidates.append(seg)
+    code_candidates = [c for c in code_candidates if c][:8]
 
     resolved = False
     for code in code_candidates:
@@ -416,6 +427,9 @@ def _case14_setup(work_dir: Path) -> None:
     )
 
 def _case14_verify(work_dir: Path, response: str) -> bool:
+    # Write a known config first: the task never pins app.conf's contents,
+    # so probing whatever state the model left behind is nondeterministic.
+    (work_dir / "app.conf").write_text("# test config\nport: 8080\ndebug: true\nname: verifier\n")
     r = run_python(work_dir, "config_tool.py", "get", "port")
     if r.returncode != 0 or "8080" not in r.stdout:
         return False
